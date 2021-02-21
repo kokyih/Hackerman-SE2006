@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
     boolean succeed = true;
 
 
-    private static String url_login = "http://10.27.141.30/CE2006/login.php";
+    private static String url_login = Config.login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

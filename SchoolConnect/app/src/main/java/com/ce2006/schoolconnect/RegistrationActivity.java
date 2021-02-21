@@ -26,7 +26,7 @@ public class RegistrationActivity extends Activity {
 
     boolean succeed = true;
 
-    private static String url_register = "http://10.27.141.30/CE2006/register.php";
+    private static String url_register = Config.register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

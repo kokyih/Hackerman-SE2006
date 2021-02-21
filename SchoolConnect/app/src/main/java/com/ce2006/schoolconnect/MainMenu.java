@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainMenu extends Activity {
@@ -46,6 +47,9 @@ public class MainMenu extends Activity {
         Button btnLogout = (Button) findViewById(R.id.logout);
 
         Button gpsButton = (Button) findViewById(R.id.gpsBtn);
+
+        ImageButton upload = (ImageButton) findViewById(R.id.uploadFile);
+        ImageButton download = (ImageButton) findViewById(R.id.downloadFile);
 
         Username = (TextView) findViewById(R.id.username);
         Username.setText(User.getName());
@@ -77,6 +81,36 @@ public class MainMenu extends Activity {
                 //User.Logout();
 
                 Intent i = new Intent(getApplicationContext(), GPSActivity.class);
+                startActivity(i);
+
+            }
+
+        });
+
+        upload.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching All products Activity
+
+                //User.Logout();
+
+                Intent i = new Intent(getApplicationContext(), UploadFile.class);
+                startActivity(i);
+
+            }
+
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching All products Activity
+
+                //User.Logout();
+
+                Intent i = new Intent(getApplicationContext(), DownloadFile.class);
                 startActivity(i);
 
             }

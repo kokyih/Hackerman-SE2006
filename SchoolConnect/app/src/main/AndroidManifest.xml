@@ -7,6 +7,8 @@
 
     <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -47,6 +49,12 @@
         <activity
             android:name=".GPSActivity"
             android:label="For GPS" />
+        <activity
+            android:name=".UploadFile"
+            android:label="Upload file" />
+        <activity
+            android:name=".DownloadFile"
+            android:label="For Download" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

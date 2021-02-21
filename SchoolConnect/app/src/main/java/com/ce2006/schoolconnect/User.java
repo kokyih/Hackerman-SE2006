@@ -1,5 +1,7 @@
 package com.ce2006.schoolconnect;
 
+import android.graphics.Bitmap;
+
 public class User {
 
     private static String name = new String();
@@ -28,6 +30,13 @@ public class User {
     public static void Logout()
     {
         name = "Default";
+    }
+
+    public static Bitmap picture;
+
+    public static void setBitmap(Bitmap newbit)
+    {
+        picture = newbit;
     }
 
 }
