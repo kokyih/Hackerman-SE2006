@@ -56,6 +56,18 @@
             android:name=".DownloadFile"
             android:label="For Download" />
 
+        <activity
+            android:name=".SubmitFeedback"
+            android:label="For feedback submission" />
+
+        <activity
+            android:name=".ViewFeedback"
+            android:label="For viewing feedback" />
+
+        <activity
+            android:name=".ViewSpecificFeedback"
+            android:label="For viewing 1 feedback" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />

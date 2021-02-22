@@ -51,6 +51,9 @@ public class MainMenu extends Activity {
         ImageButton upload = (ImageButton) findViewById(R.id.uploadFile);
         ImageButton download = (ImageButton) findViewById(R.id.downloadFile);
 
+        ImageButton viewfb = (ImageButton) findViewById(R.id.viewfeedbackBtn);
+        ImageButton submitfb = (ImageButton) findViewById(R.id.submitFeedbackBtn);
+
         Username = (TextView) findViewById(R.id.username);
         Username.setText(User.getName());
 
@@ -58,63 +61,52 @@ public class MainMenu extends Activity {
         School.setText(User.getSchool());
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                // Launching All products Activity
-
                 User.Logout();
-
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
-
             }
-
         });
 
         gpsButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                // Launching All products Activity
-
-                //User.Logout();
-
                 Intent i = new Intent(getApplicationContext(), GPSActivity.class);
                 startActivity(i);
-
             }
-
         });
 
         upload.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                // Launching All products Activity
-
-                //User.Logout();
-
                 Intent i = new Intent(getApplicationContext(), UploadFile.class);
                 startActivity(i);
-
             }
-
         });
 
         download.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                // Launching All products Activity
-
-                //User.Logout();
-
                 Intent i = new Intent(getApplicationContext(), DownloadFile.class);
                 startActivity(i);
-
             }
+        });
 
+        viewfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ViewFeedback.class);
+                startActivity(i);
+            }
+        });
+
+        submitfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), SubmitFeedback.class);
+                startActivity(i);
+            }
         });
 
 

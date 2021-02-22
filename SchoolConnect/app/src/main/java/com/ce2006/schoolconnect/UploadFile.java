@@ -58,6 +58,7 @@ public class UploadFile extends Activity {
     static JSONObject jObj = null;
 
     String path= "";
+    //FileTransfer file;
 
     private AlertDialog.Builder builder;
     private int uploaded = 0;
@@ -66,8 +67,6 @@ public class UploadFile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //setContentView(R.layout.main_screen);
 
         setContentView(R.layout.upload_image);
 
@@ -79,8 +78,6 @@ public class UploadFile extends Activity {
         // Buttons
         Button back = (Button) findViewById(R.id.back_upload);
         Button submit = (Button) findViewById(R.id.submitImage);
-
-        String[] permission = {"Storage","Image"};
 
         requestStoragePermission();
 
@@ -221,7 +218,7 @@ public class UploadFile extends Activity {
                     dos = new DataOutputStream(conn.getOutputStream());
 
                     dos.writeBytes(twoHyphens + boundary + lineEnd);
-                    dos.writeBytes("Content-Disposition: form-data; name=\"file\";filename=\"" + Name.getText().toString()  +  ".jpg" + "\"" + lineEnd);
+                    dos.writeBytes("Content-Disposition: form-data; name=\"file\";filename=\"" + Name.getText().toString()  +  ".jpg" + lineEnd);
 
                     dos.writeBytes(lineEnd);
 

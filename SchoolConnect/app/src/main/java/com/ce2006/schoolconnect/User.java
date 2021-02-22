@@ -6,6 +6,8 @@ public class User {
 
     private static String name = new String();
     private static String school = new String();
+    private static String userid = new String();
+    private static String role = new String();
 
     public static void setName(String newname)
     {
@@ -15,6 +17,26 @@ public class User {
     public static String getName()
     {
         return name;
+    }
+
+    public static void setRole(String newrole)
+    {
+        role = newrole;
+    }
+
+    public static String getRole()
+    {
+        return role;
+    }
+
+    public static void setID(String newid)
+    {
+        userid = newid;
+    }
+
+    public static String getID()
+    {
+        return userid;
     }
 
     public static void setSchool(String schl)

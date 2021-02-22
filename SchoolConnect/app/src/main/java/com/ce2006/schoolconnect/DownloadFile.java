@@ -73,18 +73,11 @@ public class DownloadFile extends Activity {
 
     class downloadPic extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
-        /**
-         * Login
-         * */
         protected String doInBackground(String... args) {
 
             String name = Name.getText().toString();
@@ -99,9 +92,6 @@ public class DownloadFile extends Activity {
             return null;
         }
 
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
         protected void onPostExecute(String file_url) {
 
         }

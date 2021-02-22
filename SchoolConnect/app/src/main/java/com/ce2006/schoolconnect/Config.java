@@ -12,6 +12,9 @@ public class Config {
     public static String login = urlhead + "login.php";
     public static String register = urlhead + "register.php";
     public static String upload = urlhead + "uploadfile.php";
+    public static String submitfeedback = urlhead + "submitfeedback.php";
+    public static String viewfeedback = urlhead + "viewfeedback.php";
+    public static String view1feedback = urlhead + "getfeedback.php";
 
     public static String download = urlhead + "uploadfolder/" ;
 
