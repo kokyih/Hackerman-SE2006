@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -32,6 +33,8 @@ public class ViewFeedback extends ListActivity {
     // products JSONArray
     JSONArray feedback = null;
 
+    Button back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +43,21 @@ public class ViewFeedback extends ListActivity {
 
         feedbackList = new ArrayList<HashMap<String, String>>();
 
+        back = (Button) findViewById(R.id.feedbackList_backbtn);
+
         // Loading products in Background Thread
         new LoadAllFeedbacks().execute();
 
         // Get listview
         ListView lv = getListView();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
+            }
+        });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
