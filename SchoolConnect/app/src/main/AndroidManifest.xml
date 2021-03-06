@@ -32,17 +32,9 @@
             </intent-filter>
         </activity> <!-- All Product Activity -->
         <activity
-            android:name=".AllProductsActivity"
-            android:label="All Products" />
-        <activity
             android:name=".MainMenu"
             android:label="Main Menu" /> <!-- Add Product Activity -->
-        <activity
-            android:name=".NewProductActivity"
-            android:label="Add New Product" /> <!-- Edit Product Activity -->
-        <activity
-            android:name=".EditProductActivity"
-            android:label="Edit Product" />
+        <!-- Edit Product Activity -->
         <activity
             android:name=".RegistrationActivity"
             android:label="Register User" />
