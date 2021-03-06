@@ -9,31 +9,31 @@
 $response = array();
  
 $servername = "localhost";
-$username = "id16318694_admin";
-$password = "II8N()t?l734-R4!";
-$dbname = "id16318694_ce2006";
+$username = "id16304111_admin";
+$password = "C$)=e[nav8HIO[Gr";
+$dbname = "id16304111_ce2006";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
  
 // check for required fields
-if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['school']) ) {
+if (isset($_POST['target']) && isset($_POST['title']) && isset($_POST['message']) && isset($_POST['submitid']) ) {
  
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-	$school = $_POST['school'];
+    $target = $_POST['target'];
+    $title = $_POST['title'];
+    $message = $_POST['message'];
+	$submitid = $_POST['submitid'];
  
     // mysql inserting a new row
     //$result = mysqli_query("INSERT INTO products(name, price, description) VALUES('$name', '$price', '$description')");
-	$sql = "INSERT INTO account(name, email, password ,school , logged) VALUES('$name', '$email', '$password' , '$school' , 0)";
+	$sql = "INSERT INTO feedback(targetid, submitid, title ,message) VALUES('$target', '$submitid', '$title' , '$message')";
 	$result = mysqli_query($conn,$sql);
  
     // check if row inserted or not
     if ($result) {
         // successfully inserted into database
         $response["success"] = 1;
-        $response["message"] = "Account successfully created.";
+        $response["message"] = "Feedback submitted";
  
         // echoing JSON response
         echo json_encode($response);

@@ -9,9 +9,9 @@
 $response = array();
  
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ce2006";
+$username = "id16304111_admin";
+$password = "C$)=e[nav8HIO[Gr";
+$dbname = "id16304111_ce2006";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -39,6 +39,8 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 					//$user["name"] = $result["name"];
 					$response["name"] = $result["name"];
 					$response["school"] = $result["school"];
+					$response["userid"] = $result["uid"];
+					$response["role"] = $result["type"];
 					// success
 					$response["success"] = 1;
 					$response["message"] = "Logged in successfully";
