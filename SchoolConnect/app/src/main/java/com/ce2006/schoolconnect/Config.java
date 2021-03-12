@@ -19,4 +19,6 @@ public class Config {
 
     public static String download = urlhead + "uploadfolder/" ;
 
+    public static String downloadTB = urlhead + "timetable/" ;
+
 }

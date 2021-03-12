@@ -159,13 +159,13 @@ public class FileTransfer {
         return jObj;
     }
 
-    public Bitmap downloadImage(String filename)
+    public Bitmap downloadImage(String link, String filename)
     {
         Bitmap yourpic = null;
 
         try {
 
-            URL url = new URL(downloadUrl + filename);
+            URL url = new URL(link + filename + ".jpg");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();

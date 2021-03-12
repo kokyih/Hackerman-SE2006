@@ -8,6 +8,7 @@ public class User {
     private static String school = new String();
     private static String userid = new String();
     private static String role = new String();
+    private static String classID = new String();
 
     public static void setName(String newname)
     {
@@ -47,6 +48,16 @@ public class User {
     public static String getSchool()
     {
         return school;
+    }
+
+    public static void setClassID(String nclassID)
+    {
+        classID = nclassID;
+    }
+
+    public static String getClassID()
+    {
+        return classID;
     }
 
     public static void Logout()

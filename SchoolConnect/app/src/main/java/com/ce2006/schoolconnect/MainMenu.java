@@ -51,6 +51,22 @@ public class MainMenu extends Activity {
         ImageButton upload = (ImageButton) findViewById(R.id.uploadFile);
         ImageButton download = (ImageButton) findViewById(R.id.downloadFile);
 
+        TextView uploadtxt = (TextView) findViewById(R.id.uploadTxt);
+        TextView downloadtxt = (TextView) findViewById(R.id.downloadTxt);
+
+        //System.out.println(User.getRole());
+
+        if(User.getRole().compareTo("student") == 0)
+        {
+            upload.setVisibility(View.GONE);
+            uploadtxt.setVisibility(View.GONE);
+        }
+        else if (User.getRole().compareTo("teacher") == 0)
+        {
+            download.setVisibility(View.GONE);
+            downloadtxt.setVisibility(View.GONE);
+        }
+
         ImageButton viewfb = (ImageButton) findViewById(R.id.viewfeedbackBtn);
         ImageButton submitfb = (ImageButton) findViewById(R.id.submitFeedbackBtn);
 

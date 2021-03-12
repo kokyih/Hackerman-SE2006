@@ -135,6 +135,7 @@ public class MainActivity extends Activity {
                     User.setSchool(json.getString("school"));
                     User.setID(json.getString("userid"));
                     User.setRole(json.getString("role"));
+                    User.setClassID(json.getString("class"));
 
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     startActivity(i);

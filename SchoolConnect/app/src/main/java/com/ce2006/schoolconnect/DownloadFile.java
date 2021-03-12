@@ -37,10 +37,20 @@ public class DownloadFile extends Activity {
         Button back = (Button) findViewById(R.id.dl_back);
         Button download = (Button) findViewById(R.id.download_btn);
 
+        Name.setVisibility(View.GONE);
+        download.setVisibility(View.GONE);
+
         if(User.picture != null)
         {
             dlImage.setImageBitmap(User.picture);
         }
+
+        new downloadPic().execute();
+
+        //dlImage.setImageBitmap(User.picture);
+
+        //Intent i = new Intent(getApplicationContext(), DownloadFile.class);
+        //startActivity(i);
 
         back.setOnClickListener(new View.OnClickListener() {
 
@@ -80,20 +90,22 @@ public class DownloadFile extends Activity {
 
         protected String doInBackground(String... args) {
 
-            String name = Name.getText().toString();
+            //String name = Name.getText().toString();
+            String name = User.getClassID();
+            //System.out.println(name);
 
-            Bitmap pic = file.downloadImage(name);
+            Bitmap pic = file.downloadImage(Config.downloadTB,name);
 
             User.setBitmap(pic);
 
-            Intent i = new Intent(getApplicationContext(), DownloadFile.class);
-            startActivity(i);
+            //Intent i = new Intent(getApplicationContext(), DownloadFile.class);
+            //startActivity(i);
 
             return null;
         }
 
         protected void onPostExecute(String file_url) {
-
+            dlImage.setImageBitmap(User.picture);
         }
 
     }
