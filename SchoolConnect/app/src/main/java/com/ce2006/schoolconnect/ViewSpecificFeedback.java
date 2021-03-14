@@ -112,7 +112,7 @@ public class ViewSpecificFeedback extends Activity {
 
                     // display product data in EditText
                     title.setText(feedback.getString("title"));
-                    sender.setText(feedback.getString("submitid"));
+                    sender.setText("From : " + feedback.getString("submitid"));
                     message.setText(feedback.getString("message"));
 
                 }else{

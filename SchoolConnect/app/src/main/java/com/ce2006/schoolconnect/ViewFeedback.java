@@ -121,7 +121,7 @@ public class ViewFeedback extends ListActivity {
 
             Hashtable<String,String> params = new Hashtable<String,String>();
 
-            params.put("id",User.getID());
+            //params.put("name",User.getName());
 
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_viewfeedback, "GET", params);
