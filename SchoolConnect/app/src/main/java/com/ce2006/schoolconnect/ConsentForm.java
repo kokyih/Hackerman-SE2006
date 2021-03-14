@@ -64,7 +64,7 @@ public class ConsentForm extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.id)).getText()
+                String pid = ((TextView) view.findViewById(R.id.cfid)).getText()
                         .toString();
 
                 // Starting new intent
@@ -103,6 +103,8 @@ public class ConsentForm extends ListActivity {
 
             Hashtable<String,String> params = new Hashtable<String,String>();
 
+            params.put("id",User.getID());
+
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_viewConsentForm, "GET", params);
 
@@ -113,7 +115,7 @@ public class ConsentForm extends ListActivity {
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
-                    consentForm = json.getJSONArray("ConsentForm");
+                    consentForm = json.getJSONArray("consentform");
 
                     // looping through All Products
                     for (int i = 0; i < consentForm.length(); i++) {
@@ -165,7 +167,7 @@ public class ConsentForm extends ListActivity {
                             ConsentForm.this, consentFormList,
                             R.layout.list_consentform, new String[] { "id",
                             "title"},
-                            new int[] { R.id.id, R.id.title });
+                            new int[] { R.id.cfid, R.id.cftitle });
                     // updating listview
                     setListAdapter(adapter);
                 }

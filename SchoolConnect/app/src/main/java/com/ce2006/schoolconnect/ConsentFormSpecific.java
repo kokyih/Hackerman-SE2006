@@ -107,7 +107,7 @@ public class ConsentFormSpecific extends Activity {
                 if (success == 1) {
                     // successfully received product details
                     JSONArray productObj = json
-                            .getJSONArray("ConsentForm"); // JSON Array
+                            .getJSONArray("consentform"); // JSON Array
 
                     // get first product object from JSON Array
                     JSONObject consentform = productObj.getJSONObject(0);

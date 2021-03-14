@@ -31,7 +31,6 @@
         android:layout_marginStart="155dp"
         android:layout_marginTop="34dp"
         android:layout_marginEnd="122dp"
-        android:layout_marginBottom="643dp"
         android:text="Menu"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,27 +46,29 @@
         android:id="@+id/welcometxt"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="236dp"
-        android:layout_marginRight="236dp"
-        android:layout_marginBottom="592dp"
         android:text="Welcome, "
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="195dp"
         android:layout_height="37dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
-        android:layout_marginBottom="587dp"
         android:text="#user"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.154" />
 
     <ImageButton
         android:id="@+id/uploadFile"
@@ -84,8 +85,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/downloadFile"
@@ -101,8 +101,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/viewfeedbackBtn"
@@ -115,8 +114,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.576" />
 
     <TextView
         android:id="@+id/viewfeedbackTxt"
@@ -144,41 +142,41 @@
 
     <TextView
         android:id="@+id/schoolName"
-        android:layout_width="267dp"
-        android:layout_height="65dp"
+        android:layout_width="364dp"
+        android:layout_height="61dp"
         android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
         android:layout_marginTop="639dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
         android:layout_marginBottom="26dp"
         android:text="School"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.587"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/gpsBtn"
         android:layout_width="151dp"
         android:layout_height="68dp"
         android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
         android:layout_marginTop="555dp"
         android:layout_marginEnd="124dp"
-        android:layout_marginRight="124dp"
         android:layout_marginBottom="107dp"
         android:text="GPS"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/uploadTxt"
@@ -220,8 +218,7 @@
         app:layout_constraintHorizontal_bias="0.816"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.568" />
 
     <ImageButton
         android:id="@+id/consentFormBtn"
@@ -232,8 +229,7 @@
         app:layout_constraintHorizontal_bias="0.813"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.298" />
 
     <TextView
         android:id="@+id/consentFormtxt"
