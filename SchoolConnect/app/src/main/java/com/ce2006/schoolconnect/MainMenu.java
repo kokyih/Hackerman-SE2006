@@ -70,6 +70,8 @@ public class MainMenu extends Activity {
         ImageButton viewfb = (ImageButton) findViewById(R.id.viewfeedbackBtn);
         ImageButton submitfb = (ImageButton) findViewById(R.id.submitFeedbackBtn);
 
+        ImageButton viewconsentform = (ImageButton) findViewById(R.id.consentFormBtn) ;
+
         Username = (TextView) findViewById(R.id.username);
         Username.setText(User.getName());
 
@@ -124,6 +126,16 @@ public class MainMenu extends Activity {
                 startActivity(i);
             }
         });
+
+        viewconsentform.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(getApplicationContext(), ConsentForm.class);
+                startActivity(i);
+            }
+        });
+
+
 
 
 
