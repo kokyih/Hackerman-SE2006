@@ -38,7 +38,7 @@ public class ConsentForm extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.view_feedback);
+        setContentView(R.layout.consentformui);
 
         consentFormList = new ArrayList<HashMap<String, String>>();
 

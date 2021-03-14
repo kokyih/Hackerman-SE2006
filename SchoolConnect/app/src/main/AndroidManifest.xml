@@ -62,6 +62,14 @@
             android:label="For viewing 1 feedback" />
 
         <activity
+            android:name=".ConsentFormSpecific"
+            android:label="For viewing 1 consentform" />
+
+        <activity
+            android:name=".ConsentForm"
+            android:label="For viewing feedback" />
+
+        <activity
             android:name=".Busdriver"
             android:label="Bus driver class" />
 
