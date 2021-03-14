@@ -137,11 +137,18 @@ public class MainActivity extends Activity {
                     User.setRole(json.getString("role"));
                     User.setClassID(json.getString("class"));
 
-                    Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                    startActivity(i);
-
+                    if(User.getRole().compareTo("bus") != 0) {
+                        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                        startActivity(i);
+                    }
+                    else if (User.getRole().compareTo("bus") == 0)
+                    {
+                        Intent i = new Intent(getApplicationContext(), Busdriver.class);
+                        startActivity(i);
+                    }
                     // closing this screen
                     finish();
+
                 } else {
 
                     succeed = false;

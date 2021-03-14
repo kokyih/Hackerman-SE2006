@@ -41,7 +41,7 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
-        LatLng ntu = new LatLng(1.3402, 103.6755);
+        LatLng ntu = new LatLng(User.getLat(), User.getLong());
         googleMap.addMarker(new MarkerOptions()
                 .position(ntu)
                 .title("Marker in Sydney"));

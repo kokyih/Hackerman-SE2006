@@ -56,7 +56,7 @@ public class MainMenu extends Activity {
 
         //System.out.println(User.getRole());
 
-        if(User.getRole().compareTo("student") == 0)
+        if(User.getRole().compareTo("parent") == 0)
         {
             upload.setVisibility(View.GONE);
             uploadtxt.setVisibility(View.GONE);

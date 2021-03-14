@@ -16,6 +16,7 @@ public class Config {
     public static String submitfeedback = urlhead + "submitfeedback.php";
     public static String viewfeedback = urlhead + "viewfeedback.php";
     public static String view1feedback = urlhead + "getfeedback.php";
+    public static String updateLocation = urlhead + "updateBusLoc.php";
 
     public static String download = urlhead + "uploadfolder/" ;
 
