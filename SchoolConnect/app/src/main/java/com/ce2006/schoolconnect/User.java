@@ -10,11 +10,25 @@ public class User {
     private static String role = new String();
     private static String classID = new String();
 
+    private static float Lat = 0;
+    private static float Long = 0;
+
+    public static void setLat(float newLat) { Lat = newLat; }
+    public static float getLat()
+    {
+        return Lat;
+    }
+
+    public static void setLong(float newLong) { Long = newLong; }
+    public static float getLong()
+    {
+        return Long;
+    }
+
     public static void setName(String newname)
     {
         name = newname;
     }
-
     public static String getName()
     {
         return name;
@@ -24,7 +38,6 @@ public class User {
     {
         role = newrole;
     }
-
     public static String getRole()
     {
         return role;
@@ -34,7 +47,6 @@ public class User {
     {
         userid = newid;
     }
-
     public static String getID()
     {
         return userid;
@@ -44,7 +56,6 @@ public class User {
     {
         school = schl;
     }
-
     public static String getSchool()
     {
         return school;
@@ -54,7 +65,6 @@ public class User {
     {
         classID = nclassID;
     }
-
     public static String getClassID()
     {
         return classID;

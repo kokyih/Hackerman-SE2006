@@ -18,6 +18,7 @@ public class Config {
     public static String view1feedback = urlhead + "getfeedback.php";
     public static String viewConsentForm = urlhead + "viewconsentform.php";
     public static String view1ConsentForm = urlhead + "getconsentform.php";
+    public static String updateLocation = urlhead + "updateBusLoc.php";
 
     public static String download = urlhead + "uploadfolder/" ;
 
