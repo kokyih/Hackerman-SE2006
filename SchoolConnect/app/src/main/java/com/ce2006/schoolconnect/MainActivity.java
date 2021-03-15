@@ -137,6 +137,8 @@ public class MainActivity extends Activity {
                     User.setRole(json.getString("role"));
                     User.setClassID(json.getString("class"));
 
+                    User.save("id", User.getID(),MainActivity.this);
+
                     if(User.getRole().compareTo("bus") != 0) {
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         startActivity(i);
@@ -169,6 +171,8 @@ public class MainActivity extends Activity {
             //pDialog.dismiss();
             if(!succeed)
                 builder.show();
+
+            startService(new Intent(MainActivity.this, NotificationService.class));
         }
 
     }

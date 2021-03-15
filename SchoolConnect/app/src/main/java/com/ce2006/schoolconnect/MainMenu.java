@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -48,6 +49,8 @@ public class MainMenu extends Activity {
 
         Button gpsButton = (Button) findViewById(R.id.gpsBtn);
 
+        Button endClass = (Button) findViewById(R.id.endClass);
+
         ImageButton upload = (ImageButton) findViewById(R.id.uploadFile);
         ImageButton download = (ImageButton) findViewById(R.id.downloadFile);
 
@@ -60,6 +63,9 @@ public class MainMenu extends Activity {
         {
             upload.setVisibility(View.GONE);
             uploadtxt.setVisibility(View.GONE);
+
+            endClass.setVisibility(View.GONE);
+
         }
         else if (User.getRole().compareTo("teacher") == 0)
         {
@@ -135,10 +141,64 @@ public class MainMenu extends Activity {
             }
         });
 
-
-
-
-
+        endClass.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //Intent i = new Intent(getApplicationContext(), ConsentForm.class);
+                //startActivity(i);
+                new endingClass().execute();
+            }
+        });
 
     }
+
+    class endingClass extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected String doInBackground(String... args) {
+
+            Hashtable<String,String> params = new Hashtable<String,String>();
+            params.put("classID", User.getClassID());
+            params.put("setEndClass" , "true");
+
+            // getting JSON Object
+            // Note that create product url accepts POST method
+            JSONObject json = jsonParser.makeHttpRequest(Config.endClass,
+                    "POST", params);
+
+            // check log cat fro response
+            //Log.d("Create Response", json.toString());
+
+            // check for success tag
+            try {
+                int success = json.getInt("success");
+
+                System.out.println( json.getString("message"));
+
+                if (success == 1) {
+                    // successfully created product
+
+                } else {
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+
+        }
+
+    }
+
 }

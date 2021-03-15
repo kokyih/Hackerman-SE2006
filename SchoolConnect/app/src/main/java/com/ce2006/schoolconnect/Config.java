@@ -21,6 +21,10 @@ public class Config {
     public static String updateLocation = urlhead + "updateBusLoc.php";
     public static String getfeedbackNames = urlhead + "getNameFeedback.php";
 
+    public static String endClass = urlhead + "endClass.php";
+
+    public static String getClassEnd = urlhead + "getClassEnd.php";
+
     public static String download = urlhead + "uploadfolder/" ;
 
     public static String downloadTB = urlhead + "timetable/" ;
