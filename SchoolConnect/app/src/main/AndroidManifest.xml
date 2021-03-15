@@ -79,6 +79,10 @@
             android:name=".GPSTracker"
             android:label="Bus driver gps tracker" />
 
+        <activity
+            android:name=".Calendar"
+            android:label="View school events" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />

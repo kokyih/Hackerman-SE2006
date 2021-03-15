@@ -46,10 +46,9 @@ public class MainMenu extends Activity {
         setContentView(R.layout.mainmenu_screen);
 
         Button btnLogout = (Button) findViewById(R.id.logout);
-
         Button gpsButton = (Button) findViewById(R.id.gpsBtn);
-
         Button endClass = (Button) findViewById(R.id.endClass);
+        Button calendarButton = (Button) findViewById(R.id.calendarBtn);
 
         ImageButton upload = (ImageButton) findViewById(R.id.uploadFile);
         ImageButton download = (ImageButton) findViewById(R.id.downloadFile);
@@ -89,6 +88,14 @@ public class MainMenu extends Activity {
             public void onClick(View view) {
                 User.Logout();
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Calendar.class);
                 startActivity(i);
             }
         });

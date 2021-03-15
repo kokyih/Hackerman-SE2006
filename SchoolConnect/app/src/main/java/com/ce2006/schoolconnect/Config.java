@@ -20,7 +20,8 @@ public class Config {
     public static String view1ConsentForm = urlhead + "getconsentform.php";
     public static String updateLocation = urlhead + "updateBusLoc.php";
     public static String getfeedbackNames = urlhead + "getNameFeedback.php";
-
+    public static String updatecalendar = urlhead + "updatecalendar.php";
+    public static String getdatedetails = urlhead + "getdatedetails.php";
     public static String endClass = urlhead + "endClass.php";
 
     public static String getClassEnd = urlhead + "getClassEnd.php";
