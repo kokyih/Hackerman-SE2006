@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class MainMenu extends Activity {
         Button endClass = (Button) findViewById(R.id.endClass);
         Button calendarButton = (Button) findViewById(R.id.calendarBtn);
 
+        ImageButton progressbtn = (ImageButton) findViewById(R.id.progressreport_btn);
         ImageButton upload = (ImageButton) findViewById(R.id.uploadFile);
         ImageButton download = (ImageButton) findViewById(R.id.downloadFile);
 
@@ -96,6 +98,14 @@ public class MainMenu extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Calendar.class);
+                startActivity(i);
+            }
+        });
+
+        progressbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ProgressReport.class);
                 startActivity(i);
             }
         });

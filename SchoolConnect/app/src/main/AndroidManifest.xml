@@ -42,6 +42,10 @@
             android:name=".RegistrationActivity"
             android:label="Register User" />
         <activity
+            android:name=".ProgressReport"
+            android:label="Progress Report" />
+
+        <activity
             android:name=".GPSActivity"
             android:label="For GPS" />
         <activity
