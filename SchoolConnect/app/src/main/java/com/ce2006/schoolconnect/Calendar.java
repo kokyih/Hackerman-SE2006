@@ -42,6 +42,8 @@ public class Calendar extends AppCompatActivity {
     TextView date;
     EditText eventdetails;
 
+    String details = "";
+
     @Override
     protected void onCreate(Bundle savedInstancesState){
         super.onCreate(savedInstancesState);
@@ -64,7 +66,8 @@ public class Calendar extends AppCompatActivity {
                 String selectedDate = dayOfMonth+ "/" + month + "/" + year;
                 date.setText(selectedDate);
                 //need to pull details from database here
-                eventdetails.setText("send help from database");
+                //eventdetails.setText("send help from database");
+                new getDateDetails().execute();
             }
         });
 
@@ -80,34 +83,32 @@ public class Calendar extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //new updateCalendar().execute();
+                new updateCalendar().execute();
             }
         });
     }
 
-    /*class updateCalendar extends AsyncTask<String, String, String> {
+    class updateCalendar extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            //builder = new AlertDialog.Builder(SubmitFeedback.this);
-            //builder.setCancelable(true);
-            //builder.setMessage("Failed to submit feedback");
+            builder = new AlertDialog.Builder(Calendar.this);
+            builder.setCancelable(true);
+            builder.setMessage("Failed to update calendar");
         }
 
         protected String doInBackground(String... args) {
-            String targetname = currentTarget;//target.getText().toString();
-            String titles = title.getText().toString();
-            String messages = message.getText().toString();
+            //String targetname = currentTarget;//target.getText().toString();
+            //String titles = title.getText().toString();
+            //String messages = message.getText().toString();
 
             Hashtable<String,String> params = new Hashtable<String,String>();
-            params.put("target", targetname);
-            params.put("title", titles);
-            params.put("message", messages);
-            params.put("submitid", User.getName());
+            params.put("date", date.getText().toString());
+            params.put("title", eventdetails.getText().toString());
 
-            JSONObject json = jsonParser.makeHttpRequest(url_submitfeedback,
+            JSONObject json = jsonParser.makeHttpRequest(Config.updatecalendar,
                     "POST", params);
 
             // check for success tag
@@ -118,14 +119,14 @@ public class Calendar extends AppCompatActivity {
 
                 if (success == 1) {
                     // successfully created product
-                    Intent i = new Intent(getApplicationContext(), SubmitFeedback.class);
-                    startActivity(i);
+                    //Intent i = new Intent(getApplicationContext(), SubmitFeedback.class);
+                    //startActivity(i);
 
                     // closing this screen
-                    finish();
+                    //finish();
                 } else {
 
-                    succeed = false;
+                    //succeed = false;
 
                 }
             } catch (JSONException e) {
@@ -142,9 +143,9 @@ public class Calendar extends AppCompatActivity {
                 builder.show();
         }
 
-    }*/
+    }
 
-    /*class getDateDetails extends AsyncTask<String, String, String> {
+    class getDateDetails extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -152,33 +153,23 @@ public class Calendar extends AppCompatActivity {
         }
 
         protected String doInBackground(String... args) {
-            Hashtable<String,String> params = new Hashtable<String,String>();
+            Hashtable<String, String> params = new Hashtable<String, String>();
 
-            JSONObject json = jsonParser.makeHttpRequest(Config.getfeedbackNames,
+            params.put("date", date.getText().toString());
+
+            JSONObject json = jsonParser.makeHttpRequest(Config.getdatedetails,
                     "POST", params);
 
             // check for success tag
             try {
                 int success = json.getInt("success");
 
-                System.out.println( json.getString("message"));
+                System.out.println(json.getString("message"));
 
-                jnames = json.getJSONArray("nameList");
-
-                // looping through All Products
-                for (int i = 0; i < jnames.length(); i++) {
-                    JSONObject c = jnames.getJSONObject(i);
-
-                    // Storing each json item in variable
-                    String name = c.getString("name");
-
-                    // adding HashList to ArrayList
-                    names.add(name);
-                    //System.out.println( name);
-                }
+                details = json.getString("eventDetails");
 
                 if (success == 1) {
-                    succeed = true;
+                    //succeed = true;
                 } else {
                 }
             } catch (JSONException e) {
@@ -186,5 +177,15 @@ public class Calendar extends AppCompatActivity {
             }
 
             return null;
-        }*/
+        }
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            //pDialog.dismiss();
+            //if (!succeed)
+                //builder.show();
+            eventdetails.setText(details);
+        }
+    }
+
 }
