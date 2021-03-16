@@ -29,7 +29,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class ProgressReport extends ListActivity{
+public class ProgressReport extends Activity{
 
     private AlertDialog.Builder builder;
     JSONParser jsonParser = new JSONParser();
@@ -52,6 +52,9 @@ public class ProgressReport extends ListActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.progressreport);
+
+
 
         update = (Button) findViewById(R.id.updategrades);
         back = (Button) findViewById(R.id.backbtn);
@@ -118,6 +121,12 @@ public class ProgressReport extends ListActivity{
 
                 Hashtable<String,String> paramsss = new Hashtable<String,String>();
                 //paramsss.put("id", id);
+                paramsss.put("studentid",listofstudent.getQuery().toString());
+                paramsss.put("maths",maths.getText().toString());
+                paramsss.put("english",english.getText().toString());
+                paramsss.put("science",science.getText().toString());
+                paramsss.put("mothertongue",mothertongue.getText().toString());
+
 
                 // getting product details by making HTTP request
                 // Note that product details url will use GET request
@@ -129,6 +138,8 @@ public class ProgressReport extends ListActivity{
 
                 // json success tag
                 success = json.getInt("success");
+                System.out.println( json.getString("message"));
+
                 if (success == 1) {
                     // successfully received product details
                     JSONArray productObj = json
@@ -190,12 +201,16 @@ public class ProgressReport extends ListActivity{
 
                 Hashtable<String,String> paramsss = new Hashtable<String,String>();
                 //paramsss.put("id", id);
+                paramsss.put("studentid",User.getName());
+
+
+
 
                 // getting product details by making HTTP request
                 // Note that product details url will use GET request
                 JSONObject json = jsonParser.makeHttpRequest(url_getProgressReport,
                         "POST", paramsss);
-
+                System.out.println( json.getString("message"));
                 // check your log for json response
                 //Log.d("Single Product Details", json.toString());
 
@@ -203,17 +218,15 @@ public class ProgressReport extends ListActivity{
                 success = json.getInt("success");
                 if (success == 1) {
                     // successfully received product details
-                    JSONArray productObj = json
-                            .getJSONArray("consentform"); // JSON Array
 
-                    // get first product object from JSON Array
-                    JSONObject consentform = productObj.getJSONObject(0);
+
+
 
                     // display product data in EditText
-                    //title.setText(consentform.getString("title"));
-                    //sender.setText(consentform.getString("senderid"));
-                    //message.setText(consentform.getString("message"));
-                    //approval.setChecked(consentform.getBoolean("status"));
+                    english.setText(json.getString("english"));
+                    maths.setText(json.getString("maths"));
+                    science.setText(json.getString("science"));
+                    mothertongue.setText(json.getString("mothertongue"));
 
                 }else{
                     // product with pid not found

@@ -31,7 +31,7 @@ public class Config {
     public static String updatecalendar = urlhead + "updatecalendar.php";
     public static String getdatedetails = urlhead + "getdatedetails.php";
 
-    public static String updateProgressReport = urlhead + "updateprogressreport.php";
+    public static String updateProgressReport = urlhead + "submitprogressreport.php";
     public static String getProgressReport = urlhead + "getprogressreport.php";
     public static String getStudentIdList = urlhead + "getstudentidlist.php";
 
