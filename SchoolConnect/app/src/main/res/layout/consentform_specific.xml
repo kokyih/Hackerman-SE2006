@@ -43,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textOff="@android:string/yes"
-            android:textOn="Approved" />
+            android:textOn="Approved"
+            />
 
         <Button
             android:id="@+id/cfSubmitBtn"
@@ -55,14 +56,16 @@
             android:id="@+id/noOfApproval"
             android:layout_width="113dp"
             android:layout_height="45dp"
-            android:text="Number of Approved Consent Form" />
+            android:text="Number of Approved Consent Form"
+            android:visibility="invisible"/>
 
         <Spinner
             android:id="@+id/listOfClass"
             android:layout_width="147dp"
             android:layout_height="wrap_content"
             android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:inputType="textPersonName"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

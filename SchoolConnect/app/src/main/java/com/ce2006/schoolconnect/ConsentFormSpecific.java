@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -18,9 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
-public class ConsentFormSpecific extends Activity {
+public class ConsentFormSpecific extends Activity implements AdapterView.OnItemSelectedListener{
     String id;
     private AlertDialog.Builder builder;
     JSONArray jnames = new JSONArray();
@@ -31,9 +35,9 @@ public class ConsentFormSpecific extends Activity {
     private static final String url_update_consentform = Config.updateConsentForm;
     private static final String url_submit_consentform = Config.submitConsentForm;
     // need to pull from student's class id
-    private static final String url_get_listofclassid = Config.getClassIdList;
+    //private static final String url_get_listofclassid = Config.getClassIdList;
 
-    Spinner classIdList;
+    Spinner target;
     Button back;
     TextView title;
     TextView sender;
@@ -42,6 +46,8 @@ public class ConsentFormSpecific extends Activity {
     ToggleButton approval;
     Button submit;
 
+    String currentTarget = "";
+    List<String> names = new ArrayList<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,7 @@ public class ConsentFormSpecific extends Activity {
         approval = (ToggleButton) findViewById(R.id.cfApproveBtn);
         submit = (Button) findViewById(R.id.cfSubmitBtn);
         noOfApproval = (TextView) findViewById(R.id.noOfApproval); // <- need a function for this to get total number of approved form for this consentform id
-        classIdList = (Spinner) findViewById(R.id.listOfClass); // <- need a function for this to get list of classes' id
+        target = (Spinner) findViewById(R.id.listOfClass); // <- need a function for this to get list of classes' id
 
 
         if(User.getRole().compareTo("teacher") != 0)
@@ -63,14 +69,13 @@ public class ConsentFormSpecific extends Activity {
             submit.setVisibility(View.GONE);
             message.setEnabled(false);
             title.setEnabled(false);
-            noOfApproval.setVisibility(View.GONE);
-            classIdList.setVisibility(View.GONE);
+            //noOfApproval.setVisibility(View.GONE);
+            target.setVisibility(View.GONE);
 
         }
         else if(User.getRole().compareTo("teacher")==0)
         {
             approval.setVisibility(View.GONE);
-
         }
 
 
@@ -106,7 +111,19 @@ public class ConsentFormSpecific extends Activity {
             }
         });
 
+        new getNames().execute();
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+
+        currentTarget = names.get(position);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
@@ -161,7 +178,16 @@ public class ConsentFormSpecific extends Activity {
                     title.setText(consentform.getString("title"));
                     sender.setText(consentform.getString("senderid"));
                     message.setText(consentform.getString("message"));
-                    approval.setChecked(consentform.getBoolean("status"));
+                    //approval.setChecked(consentform.getBoolean("status"));
+                    if (consentform.getString("status").compareTo("1") == 0)
+                    {
+                        approval.setChecked(true);
+                    }
+                    else
+                    {
+                        approval.setChecked(false);
+                    }
+                    System.out.print(consentform.getString("status"));
 
                 }else{
                     // product with pid not found
@@ -210,7 +236,6 @@ public class ConsentFormSpecific extends Activity {
 
                 Hashtable<String,String> paramsss = new Hashtable<String,String>();
                 paramsss.put("id", id);
-
                 // getting product details by making HTTP request
                 // Note that product details url will use GET request
                 JSONObject json = jsonParser.makeHttpRequest(url_update_consentform,
@@ -230,10 +255,10 @@ public class ConsentFormSpecific extends Activity {
                     JSONObject consentform = productObj.getJSONObject(0);
 
                     // display product data in EditText
-                    title.setText(consentform.getString("title"));
-                    sender.setText(consentform.getString("senderid"));
-                    message.setText(consentform.getString("message"));
-                    approval.setChecked(consentform.getBoolean("status"));
+                    //title.setText(consentform.getString("title"));
+                    //sender.setText(consentform.getString("senderid"));
+                    //message.setText(consentform.getString("message"));
+                    //approval.setChecked(consentform.getBoolean("status"));
 
                 }else{
                     // product with pid not found
@@ -274,7 +299,8 @@ public class ConsentFormSpecific extends Activity {
             //params.put("target", targetname);
             params.put("title", titles);
             params.put("message", messages);
-            params.put("submitid", User.getName());
+            params.put("senderid", User.getName());
+            params.put("studentid",currentTarget);
 
             JSONObject json = jsonParser.makeHttpRequest(url_submit_consentform,
                     "POST", params);
@@ -287,7 +313,7 @@ public class ConsentFormSpecific extends Activity {
 
                 if (success == 1) {
                     // successfully created product
-                    Intent i = new Intent(getApplicationContext(), SubmitFeedback.class);
+                    Intent i = new Intent(getApplicationContext(), ConsentForm.class);
                     startActivity(i);
 
                     // closing this screen
@@ -311,5 +337,86 @@ public class ConsentFormSpecific extends Activity {
                 builder.show();
         }
 
+    }
+    class getNames extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            /*pDialog = new ProgressDialog(EditProductActivity.this);
+            pDialog.setMessage("Loading product details. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();*/
+        }
+
+        /**
+         * Getting product details in background thread
+         * */
+        protected String doInBackground(String... params) {
+
+            int success;
+            try {
+                // Building Parameters
+                //List<NameValuePair> params = new ArrayList<NameValuePair>();
+                //params.add(new BasicNameValuePair("pid", pid));
+
+                Hashtable<String,String> paramsss = new Hashtable<String,String>();
+                //paramsss.put("id", id);
+
+
+                JSONObject json = jsonParser.makeHttpRequest(Config.getStudentIdList,
+                        "POST", paramsss);
+
+
+                // json success tag
+                success = json.getInt("success");
+                System.out.println( json.getString("message"));
+
+                if (success == 1) {
+                    // successfully received product details
+                    succeed = true;
+                    jnames = json.getJSONArray("nameList");
+
+                    // looping through All Products
+                    for (int i = 0; i < jnames.length(); i++) {
+                        JSONObject c = jnames.getJSONObject(i);
+
+                        // Storing each json item in variable
+                        String name = c.getString("name");
+                        System.out.println(name);
+                        // adding HashList to ArrayList
+                        names.add(name);
+                        //System.out.println( name);
+                    }
+
+                }else{
+                    // product with pid not found
+                    succeed = false;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once got all details
+            //pDialog.dismiss();
+            if(succeed) {
+                ArrayAdapter adapter = new ArrayAdapter<String>(ConsentFormSpecific.this, android.R.layout.simple_spinner_dropdown_item, names);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                target.setAdapter(adapter);
+                target.setOnItemSelectedListener(ConsentFormSpecific.this);
+            }
+
+        }
     }
 }

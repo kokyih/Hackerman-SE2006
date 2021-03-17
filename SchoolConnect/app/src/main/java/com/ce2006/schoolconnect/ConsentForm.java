@@ -33,6 +33,7 @@ public class ConsentForm extends ListActivity {
     JSONArray consentForm = null;
 
     Button back;
+    Button newConsentForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class ConsentForm extends ListActivity {
         consentFormList = new ArrayList<HashMap<String, String>>();
 
         back = (Button) findViewById(R.id.ConsentFormList_backbtn);
+        newConsentForm = (Button) findViewById(R.id.ConsentFormList_newbtn);
 
         // Loading products in Background Thread
         new LoadAllConsentForm().execute();
@@ -50,10 +52,24 @@ public class ConsentForm extends ListActivity {
         // Get listview
         ListView lv = getListView();
 
+        if(User.getRole().compareTo("teacher")!=0)
+        {
+            newConsentForm.setVisibility(View.GONE);
+        }
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
+            }
+        });
+
+        newConsentForm.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0){
+                Intent i = new Intent(getApplicationContext(), ConsentFormSpecific.class);
                 startActivity(i);
             }
         });
