@@ -33,7 +33,7 @@ public class Config {
 
     public static String updateProgressReport = urlhead + "submitprogressreport.php";
     public static String getProgressReport = urlhead + "getprogressreport.php";
-    public static String getStudentIdList = urlhead + "getstudentidlist.php";
+    public static String getStudentIdList = urlhead + "getNameProgressReport.php";
 
     public static String getClassEnd = urlhead + "getClassEnd.php";
     public static String endClass = urlhead + "endClass.php";

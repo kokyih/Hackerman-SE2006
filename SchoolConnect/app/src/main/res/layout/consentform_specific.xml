@@ -23,11 +23,12 @@
             android:layout_height="62dp"
             android:text="Sender" />
 
-        <EidtText
+        <EditText
             android:id="@+id/speccf_title"
-            android:layout_width="125dp"
-            android:layout_height="66dp"
-            android:text="Title" />
+            android:layout_width="305dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/speccf_msg"

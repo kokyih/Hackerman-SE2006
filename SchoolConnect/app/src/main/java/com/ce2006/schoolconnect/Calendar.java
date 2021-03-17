@@ -63,7 +63,7 @@ public class Calendar extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String selectedDate = dayOfMonth+ "/" + month + "/" + year;
+                String selectedDate = dayOfMonth+ "_" + month + "_" + year;
                 date.setText(selectedDate);
                 //need to pull details from database here
                 //eventdetails.setText("send help from database");
@@ -164,13 +164,17 @@ public class Calendar extends AppCompatActivity {
             try {
                 int success = json.getInt("success");
 
-                System.out.println(json.getString("message"));
-
-                details = json.getString("eventDetails");
+                System.out.println(json.getString("message") + " Success: " + success);
 
                 if (success == 1) {
                     //succeed = true;
+                    //System.out.println(json.getJSONObject("details"));
+
+                    eventdetails.setText(json.getString("details"));
+
                 } else {
+
+                    eventdetails.setText("No events");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -184,7 +188,7 @@ public class Calendar extends AppCompatActivity {
             //pDialog.dismiss();
             //if (!succeed)
                 //builder.show();
-            eventdetails.setText(details);
+
         }
     }
 

@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -29,7 +30,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class ProgressReport extends Activity{
+public class ProgressReport extends Activity implements AdapterView.OnItemSelectedListener{
 
     private AlertDialog.Builder builder;
     JSONParser jsonParser = new JSONParser();
@@ -39,7 +40,7 @@ public class ProgressReport extends Activity{
     private static String url_getProgressReport = Config.getProgressReport;
     private static String url_getStudentIdList = Config.getStudentIdList;
 
-    SearchView listofstudent;
+    //SearchView listofstudent;
     EditText maths;
     EditText science;
     EditText mothertongue;
@@ -47,6 +48,11 @@ public class ProgressReport extends Activity{
     Button update;
     Button back;
 
+    Spinner target;
+
+    String currentTarget = "";
+
+    List<String> names = new ArrayList<String>();
 
 
     @Override
@@ -62,9 +68,12 @@ public class ProgressReport extends Activity{
         science = (EditText) findViewById (R.id.Science);
         mothertongue = (EditText) findViewById (R.id.MotherTongue);
         english = (EditText) findViewById (R.id.English);
-        listofstudent = (SearchView) findViewById(R.id.listofstudent);
+        //listofstudent = (SearchView) findViewById(R.id.listofstudent);
 
-        new getProgressReport().execute();
+        target = (Spinner) findViewById(R.id.listofstudent);
+
+
+        //new getProgressReport().execute();
         //new getStudentIdList().execute();??? idk man
 
         if(User.getRole().compareTo("teacher") != 0)
@@ -73,8 +82,13 @@ public class ProgressReport extends Activity{
             science.setEnabled(false);
             mothertongue.setEnabled(false);
             english.setEnabled(false);
-            listofstudent.setVisibility(View.GONE);
+            //listofstudent.setVisibility(View.GONE);
+            target.setVisibility(View.GONE);
             update.setVisibility(View.GONE);
+        }
+        else
+        {
+            new getProgressReport().execute();
         }
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +106,21 @@ public class ProgressReport extends Activity{
             }
         });
 
+        new getNames().execute();
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+
+        currentTarget = names.get(position);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     class updateProgressReport extends AsyncTask<String, String, String> {
 
         /**
@@ -121,38 +149,24 @@ public class ProgressReport extends Activity{
 
                 Hashtable<String,String> paramsss = new Hashtable<String,String>();
                 //paramsss.put("id", id);
-                paramsss.put("studentid",listofstudent.getQuery().toString());
+                paramsss.put("studentid",currentTarget);
+                System.out.println(currentTarget);
                 paramsss.put("maths",maths.getText().toString());
                 paramsss.put("english",english.getText().toString());
                 paramsss.put("science",science.getText().toString());
                 paramsss.put("mothertongue",mothertongue.getText().toString());
 
 
-                // getting product details by making HTTP request
-                // Note that product details url will use GET request
                 JSONObject json = jsonParser.makeHttpRequest(url_updateProgressReport,
                         "POST", paramsss);
 
-                // check your log for json response
-                //Log.d("Single Product Details", json.toString());
 
                 // json success tag
                 success = json.getInt("success");
                 System.out.println( json.getString("message"));
 
                 if (success == 1) {
-                    // successfully received product details
-                    JSONArray productObj = json
-                            .getJSONArray("consentform"); // JSON Array
 
-                    // get first product object from JSON Array
-                    JSONObject consentform = productObj.getJSONObject(0);
-
-                    // display product data in EditText
-                    //title.setText(consentform.getString("title"));
-                    //sender.setText(consentform.getString("senderid"));
-                    //message.setText(consentform.getString("message"));
-                    //approval.setChecked(consentform.getBoolean("status"));
 
                 }else{
                     // product with pid not found
@@ -181,11 +195,6 @@ public class ProgressReport extends Activity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            /*pDialog = new ProgressDialog(EditProductActivity.this);
-            pDialog.setMessage("Loading product details. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();*/
         }
 
         /**
@@ -247,5 +256,86 @@ public class ProgressReport extends Activity{
         }
     }
 
+    class getNames extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            /*pDialog = new ProgressDialog(EditProductActivity.this);
+            pDialog.setMessage("Loading product details. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();*/
+        }
+
+        /**
+         * Getting product details in background thread
+         * */
+        protected String doInBackground(String... params) {
+
+            int success;
+            try {
+                // Building Parameters
+                //List<NameValuePair> params = new ArrayList<NameValuePair>();
+                //params.add(new BasicNameValuePair("pid", pid));
+
+                Hashtable<String,String> paramsss = new Hashtable<String,String>();
+                //paramsss.put("id", id);
+
+
+                JSONObject json = jsonParser.makeHttpRequest(Config.getStudentIdList,
+                        "POST", paramsss);
+
+
+                // json success tag
+                success = json.getInt("success");
+                System.out.println( json.getString("message"));
+
+                if (success == 1) {
+                    // successfully received product details
+                    succeed = true;
+                    jnames = json.getJSONArray("nameList");
+
+                    // looping through All Products
+                    for (int i = 0; i < jnames.length(); i++) {
+                        JSONObject c = jnames.getJSONObject(i);
+
+                        // Storing each json item in variable
+                        String name = c.getString("name");
+
+                        // adding HashList to ArrayList
+                        names.add(name);
+                        //System.out.println( name);
+                    }
+
+                }else{
+                    // product with pid not found
+                    succeed = false;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once got all details
+            //pDialog.dismiss();
+            if(succeed) {
+                ArrayAdapter adapter = new ArrayAdapter<String>(ProgressReport.this, android.R.layout.simple_spinner_dropdown_item, names);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                target.setAdapter(adapter);
+                target.setOnItemSelectedListener(ProgressReport.this);
+            }
+
+        }
+    }
 
     }
