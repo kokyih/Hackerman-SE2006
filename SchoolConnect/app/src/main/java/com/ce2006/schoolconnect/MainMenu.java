@@ -48,8 +48,8 @@ public class MainMenu extends Activity {
 
         Button btnLogout = (Button) findViewById(R.id.logout);
         Button gpsButton = (Button) findViewById(R.id.gpsBtn);
-        Button endClass = (Button) findViewById(R.id.endClass);
-        Button calendarButton = (Button) findViewById(R.id.calendarBtn);
+        ImageButton endClass = (ImageButton) findViewById(R.id.endClass);
+        ImageButton calendarButton = (ImageButton) findViewById(R.id.calendarBtn);
 
         ImageButton progressbtn = (ImageButton) findViewById(R.id.progressreport_btn);
         ImageButton upload = (ImageButton) findViewById(R.id.uploadFile);

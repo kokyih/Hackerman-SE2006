@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
@@ -40,109 +40,96 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="195dp"
-        android:layout_height="37dp"
-        android:text=" #user"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+   <TextView
+       android:id="@+id/username"
+       android:layout_width="195dp"
+       android:layout_height="37dp"
+       android:text=" #user"
+       android:textSize="24sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.976"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.181" />
 
-    <TextView
-        android:id="@+id/welcometxt"
-        android:layout_width="119dp"
-        android:layout_height="37dp"
-        android:text="Welcome,"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.335"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+   <TextView
+       android:id="@+id/welcometxt"
+       android:layout_width="119dp"
+       android:layout_height="37dp"
+       android:text="Welcome,"
+       android:textSize="24sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.318"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.181" />
 
-    <ImageButton
-        android:id="@+id/uploadFile"
+   <ImageButton
+       android:id="@+id/uploadFile"
+       android:layout_width="169dp"
+       android:layout_height="155dp"
+       android:layout_marginTop="190dp"
+       android:layout_marginEnd="45dp"
+       android:layout_marginBottom="394dp"
+       android:background="@drawable/timetable"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.124"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.0" />
 
-        android:layout_width="119dp"
-        android:layout_height="108dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="189dp"
-        android:layout_marginEnd="215dp"
-        android:layout_marginBottom="395dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+   <ImageButton
+       android:id="@+id/downloadFile"
+       android:layout_width="169dp"
+       android:layout_height="155dp"
+       android:layout_marginTop="190dp"
+       android:layout_marginEnd="45dp"
+       android:layout_marginBottom="394dp"
+       android:background="@drawable/timetable"
+       android:contentDescription="TODO"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.121"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.0" />
 
-    <ImageButton
-        android:id="@+id/downloadFile"
-        android:background="@drawable/timetable"
-        android:layout_width="119dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="190dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="394dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:contentDescription="TODO" />
+   <ImageButton
+       android:id="@+id/viewfeedbackBtn"
+       android:layout_width="105dp"
+       android:layout_height="103dp"
+       android:background="@drawable/progresscheck"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.176"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.652" />
 
-    <ImageButton
-        android:id="@+id/viewfeedbackBtn"
-        android:background="@drawable/progresscheck"
-        android:layout_width="105dp"
-        android:layout_height="103dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
+   <TextView
+       android:id="@+id/viewfeedbackTxt"
+       android:layout_width="101dp"
+       android:layout_height="37dp"
+       android:text="View Feedback"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.187"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.755" />
 
-    <TextView
-        android:id="@+id/viewfeedbackTxt"
-        android:layout_width="101dp"
-        android:layout_height="37dp"
-        android:text="View Feedback"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.174"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685" />
-
-    <TextView
-        android:id="@+id/submitfeedbacktxt"
-        android:layout_width="101dp"
-        android:layout_height="37dp"
-        android:text="Submit Feedback"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.793"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685" />
-
-    <TextView
+   <TextView
         android:id="@+id/schoolName"
         android:layout_width="364dp"
         android:layout_height="61dp"
@@ -174,98 +161,113 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.829" />
 
-    <TextView
-        android:id="@+id/uploadTxt"
-        android:layout_width="140dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="222dp"
-        android:text="Upload"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.429" />
+   <TextView
+       android:id="@+id/uploadTxt"
+       android:layout_width="101dp"
+       android:layout_height="9dp"
+       android:layout_marginEnd="222dp"
+       android:textSize="24sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.852"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.488" />
 
-    <TextView
-        android:id="@+id/downloadTxt"
-        android:layout_width="187dp"
-        android:layout_height="42dp"
-        android:text="View Timetable"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
+   <TextView
+       android:id="@+id/downloadTxt"
+       android:layout_width="101dp"
+       android:layout_height="10dp"
+       android:textSize="24sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.241"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.488" />
+
+   <ImageButton
+       android:id="@+id/submitFeedbackBtn"
+       android:layout_width="128dp"
+       android:layout_height="106dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.805"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.656" />
+
+   <TextView
+       android:id="@+id/submitfeedbacktxt"
+       android:layout_width="101dp"
+       android:layout_height="37dp"
+       android:text="Submit Feedback"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.783"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.765" />
+
+   <ImageButton
+       android:id="@+id/consentFormBtn"
+       android:layout_width="169dp"
+       android:layout_height="155dp"
+       android:layout_marginTop="190dp"
+       android:layout_marginEnd="25dp"
+       android:layout_marginBottom="394dp"
+       android:background="@drawable/consentform"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.972"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.0" />
+
+   <TextView
+       android:id="@+id/consentFormtxt"
+       android:layout_width="97dp"
+       android:layout_height="7dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.764"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.486" />
 
     <ImageButton
-        android:id="@+id/submitFeedbackBtn"
-        android:layout_width="128dp"
-        android:layout_height="106dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.816"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568" />
-
-    <ImageButton
-        android:id="@+id/consentFormBtn"
-        android:layout_width="115dp"
-        android:layout_height="105dp"
-        android:background="@drawable/consentform"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.813"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
-
-    <TextView
-        android:id="@+id/consentFormtxt"
-        android:layout_width="126dp"
-        android:layout_height="33dp"
-        android:text="Consent Forms"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.817"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444" />
-
-    <Button
         android:id="@+id/endClass"
-        android:layout_width="148dp"
-        android:layout_height="62dp"
-        android:text="End Class"
-        android:textSize="18sp"
+        android:layout_width="169dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/pickuptime"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.937" />
 
-    <Button
+    <ImageButton
         android:id="@+id/calendarBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Events"
-        android:textSize="18sp"
-        android:visibility="visible"
+        android:layout_width="169dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/calendar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.925" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/progressreport_btn"
