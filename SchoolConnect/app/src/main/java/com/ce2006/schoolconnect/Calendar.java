@@ -63,7 +63,7 @@ public class Calendar extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String selectedDate = dayOfMonth+ "_" + month + "_" + year;
+                String selectedDate = dayOfMonth+ "_" + (month+1) + "_" + year;
                 date.setText(selectedDate);
                 //need to pull details from database here
                 //eventdetails.setText("send help from database");
