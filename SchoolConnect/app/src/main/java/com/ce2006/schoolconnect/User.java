@@ -13,17 +13,17 @@ public class User {
     private static String role = new String();
     private static String classID = new String();
 
-    private static float Lat = 0;
-    private static float Long = 0;
+    private static double Lat = 0;
+    private static double Long = 0;
 
-    public static void setLat(float newLat) { Lat = newLat; }
-    public static float getLat()
+    public static void setLat(double newLat) { Lat = newLat; }
+    public static double getLat()
     {
         return Lat;
     }
 
-    public static void setLong(float newLong) { Long = newLong; }
-    public static float getLong()
+    public static void setLong(double newLong) { Long = newLong; }
+    public static double getLong()
     {
         return Long;
     }

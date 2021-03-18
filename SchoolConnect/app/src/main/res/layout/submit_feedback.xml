@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/submitFB_back"
+        android:id="@+id/submitFB_back2"
         android:layout_width="111dp"
         android:layout_height="49dp"
         android:text="Back"

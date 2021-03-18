@@ -12,7 +12,7 @@
         tools:layout_editor_absoluteY="57dp">
 
         <Button
-            android:id="@+id/consentform_spec_back"
+            android:id="@+id/consentform_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Back" />
