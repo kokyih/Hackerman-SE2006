@@ -40,7 +40,7 @@
             android:label="Main Menu" /> <!-- Add Product Activity -->
         <!-- Edit Product Activity -->
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".SubmitConsentForm$RegistrationActivity"
             android:label="Register User" />
 
         <activity
@@ -76,6 +76,9 @@
         <activity
             android:name=".ConsentForm"
             android:label="For viewing feedback" />
+        <activity
+            android:name=".SubmitConsentForm"
+            android:label="For submitting 1 consentform" />
 
         <activity
             android:name=".Busdriver"

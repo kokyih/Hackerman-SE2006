@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
 
         // Buttons
         Button submit = (Button) findViewById(R.id.submit_fb);
-        Button back = (Button) findViewById(R.id.submitFB_back);
+        Button back = (Button) findViewById(R.id.submitFB_back2);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

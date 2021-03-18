@@ -2,11 +2,9 @@ package com.ce2006.schoolconnect;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class ConsentFormSpecific extends Activity implements AdapterView.OnItemSelectedListener{
+public class ConsentFormSpecific extends Activity implements AdapterView.OnItemSelectedListener {
     String id;
     private AlertDialog.Builder builder;
     JSONArray jnames = new JSONArray();
@@ -46,6 +44,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
     ToggleButton approval;
     Button submit;
 
+
     String currentTarget = "";
     List<String> names = new ArrayList<String>();
 
@@ -54,7 +53,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.consentform_specific);
 
-        back = (Button) findViewById(R.id.consentform_spec_back);
+        back = (Button) findViewById(R.id.consentform_back);
         title = (EditText) findViewById(R.id.speccf_title);
         sender = (TextView) findViewById(R.id.speccf_sender);
         message = (EditText) findViewById(R.id.speccf_msg);
@@ -64,18 +63,19 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
         target = (Spinner) findViewById(R.id.listOfClass); // <- need a function for this to get list of classes' id
 
 
-        if(User.getRole().compareTo("teacher") != 0)
-        {
+        if (User.getRole().compareTo("teacher") != 0) {
             submit.setVisibility(View.GONE);
             message.setEnabled(false);
             title.setEnabled(false);
             //noOfApproval.setVisibility(View.GONE);
             target.setVisibility(View.GONE);
 
-        }
-        else if(User.getRole().compareTo("teacher")==0)
-        {
+        } else if (User.getRole().compareTo("teacher") == 0) {
             approval.setVisibility(View.GONE);
+            submit.setVisibility(View.GONE);
+            message.setEnabled(false);
+            title.setEnabled(false);
+            target.setVisibility(View.GONE);
         }
 
 
@@ -97,28 +97,28 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
             }
         });
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        /*submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new submitConsentForm().execute();
             }
-        });
+        });*/
 
-        approval.setOnClickListener(new View.OnClickListener(){
+        approval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new updateConsentForm().execute();
             }
         });
 
-        new getNames().execute();
+        //new getNames().execute();
 
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
-        currentTarget = names.get(position);
+        //currentTarget = names.get(position);
 
     }
 
@@ -131,7 +131,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
         /**
          * Before starting background thread Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -144,7 +144,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
         /**
          * Getting product details in background thread
-         * */
+         */
         protected String doInBackground(String... params) {
 
             int success;
@@ -153,7 +153,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
                 //List<NameValuePair> params = new ArrayList<NameValuePair>();
                 //params.add(new BasicNameValuePair("pid", pid));
 
-                Hashtable<String,String> paramsss = new Hashtable<String,String>();
+                Hashtable<String, String> paramsss = new Hashtable<String, String>();
                 paramsss.put("id", id);
 
                 // getting product details by making HTTP request
@@ -178,18 +178,15 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
                     title.setText(consentform.getString("title"));
                     sender.setText(consentform.getString("senderid"));
                     message.setText(consentform.getString("message"));
-                    //approval.setChecked(consentform.getBoolean("status"));
-                    if (consentform.getString("status").compareTo("1") == 0)
-                    {
+                    approval.setChecked(consentform.getBoolean("status"));
+                    if (consentform.getString("status").compareTo("1") == 0) {
                         approval.setChecked(true);
-                    }
-                    else
-                    {
+                    } else {
                         approval.setChecked(false);
                     }
                     System.out.print(consentform.getString("status"));
 
-                }else{
+                } else {
                     // product with pid not found
                 }
             } catch (JSONException e) {
@@ -201,7 +198,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
         /**
          * After completing background task Dismiss the progress dialog
-         * **/
+         **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once got all details
             //pDialog.dismiss();
@@ -212,7 +209,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
         /**
          * Before starting background thread Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -225,7 +222,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
         /**
          * Getting product details in background thread
-         * */
+         */
         protected String doInBackground(String... params) {
 
             int success;
@@ -234,7 +231,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
                 //List<NameValuePair> params = new ArrayList<NameValuePair>();
                 //params.add(new BasicNameValuePair("pid", pid));
 
-                Hashtable<String,String> paramsss = new Hashtable<String,String>();
+                Hashtable<String, String> paramsss = new Hashtable<String, String>();
                 paramsss.put("id", id);
                 // getting product details by making HTTP request
                 // Note that product details url will use GET request
@@ -260,7 +257,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
                     //message.setText(consentform.getString("message"));
                     //approval.setChecked(consentform.getBoolean("status"));
 
-                }else{
+                } else {
                     // product with pid not found
                 }
             } catch (JSONException e) {
@@ -272,7 +269,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
         /**
          * After completing background task Dismiss the progress dialog
-         * **/
+         **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once got all details
             //pDialog.dismiss();
@@ -295,12 +292,12 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
             String titles = title.getText().toString();
             String messages = message.getText().toString();
 
-            Hashtable<String,String> params = new Hashtable<String,String>();
+            Hashtable<String, String> params = new Hashtable<String, String>();
             //params.put("target", targetname);
             params.put("title", titles);
             params.put("message", messages);
             params.put("senderid", User.getName());
-            params.put("studentid",currentTarget);
+            params.put("studentid", currentTarget);
 
             JSONObject json = jsonParser.makeHttpRequest(url_submit_consentform,
                     "POST", params);
@@ -309,7 +306,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
             try {
                 int success = json.getInt("success");
 
-                System.out.println( json.getString("message"));
+                System.out.println(json.getString("message"));
 
                 if (success == 1) {
                     // successfully created product
@@ -333,16 +330,17 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once done
             //pDialog.dismiss();
-            if(!succeed)
+            if (!succeed)
                 builder.show();
         }
 
     }
-    class getNames extends AsyncTask<String, String, String> {
+
+    /*class getNames extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
-         * */
+         *
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -350,12 +348,12 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
             pDialog.setMessage("Loading product details. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
-            pDialog.show();*/
+            pDialog.show();
         }
 
         /**
          * Getting product details in background thread
-         * */
+         *
         protected String doInBackground(String... params) {
 
             int success;
@@ -364,7 +362,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
                 //List<NameValuePair> params = new ArrayList<NameValuePair>();
                 //params.add(new BasicNameValuePair("pid", pid));
 
-                Hashtable<String,String> paramsss = new Hashtable<String,String>();
+                Hashtable<String, String> paramsss = new Hashtable<String, String>();
                 //paramsss.put("id", id);
 
 
@@ -374,7 +372,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
                 // json success tag
                 success = json.getInt("success");
-                System.out.println( json.getString("message"));
+                System.out.println(json.getString("message"));
 
                 if (success == 1) {
                     // successfully received product details
@@ -393,7 +391,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
                         //System.out.println( name);
                     }
 
-                }else{
+                } else {
                     // product with pid not found
                     succeed = false;
                 }
@@ -406,11 +404,11 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
         /**
          * After completing background task Dismiss the progress dialog
-         * **/
+         *
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once got all details
             //pDialog.dismiss();
-            if(succeed) {
+            if (succeed) {
                 ArrayAdapter adapter = new ArrayAdapter<String>(ConsentFormSpecific.this, android.R.layout.simple_spinner_dropdown_item, names);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 target.setAdapter(adapter);
@@ -418,5 +416,6 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
             }
 
         }
-    }
+    }*/
 }
+

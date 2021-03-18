@@ -20,7 +20,7 @@
             android:text="Back" />
 
         <Button
-            android:id="@+id/ConsentFormList_newbtn"
+            android:id="@+id/ConsentFormList_newBtn"
             android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:text="New" />

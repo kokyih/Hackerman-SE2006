@@ -9,13 +9,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -44,7 +42,7 @@ public class ConsentForm extends ListActivity {
         consentFormList = new ArrayList<HashMap<String, String>>();
 
         back = (Button) findViewById(R.id.ConsentFormList_backbtn);
-        newConsentForm = (Button) findViewById(R.id.ConsentFormList_newbtn);
+        newConsentForm = (Button) findViewById(R.id.ConsentFormList_newBtn);
 
         // Loading products in Background Thread
         new LoadAllConsentForm().execute();
@@ -69,7 +67,7 @@ public class ConsentForm extends ListActivity {
         newConsentForm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View arg0){
-                Intent i = new Intent(getApplicationContext(), ConsentFormSpecific.class);
+                Intent i = new Intent(getApplicationContext(), SubmitConsentForm.class);
                 startActivity(i);
             }
         });
