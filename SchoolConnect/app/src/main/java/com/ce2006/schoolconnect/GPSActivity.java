@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Hashtable;
+
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
@@ -47,9 +54,14 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
     double currentLat;
     double currentLng;
 
+    JSONParser jsonParser = new JSONParser();
+    JSONObject jsonObject = new JSONObject();
+
     private FusedLocationProviderClient mFusedLocationClient;
     private Location mGetedLocation;
     public static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 101;
+
+    GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,39 +93,51 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
             }
             return;
         }
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(GPSActivity.this);
-        mFusedLocationClient.getLastLocation()
-                .addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            mGetedLocation = task.getResult();
-                            currentLat = mGetedLocation.getLatitude();
-                            currentLng = mGetedLocation.getLongitude();
-                            //updateUI();
-                        } else {
-                            //Log.e(TAG, "no location detected");
-                            //Log.w(TAG, "getLastLocation:exception", task.getException());
-                        }
-                    }
-                });
+
+        gps = new GPSTracker(GPSActivity.this);
+
+        // Check if GPS enabled
+        if(gps.canGetLocation())
+        {
+            currentLat = gps.getLatitude();
+            currentLng = gps.getLongitude();
+
+            User.setLat(currentLat);
+            User.setLat(currentLng);
+
+            // \n is for new line
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + currentLat + "\nLong: " + currentLng, Toast.LENGTH_LONG).show();
+
+            System.out.println("Your Location is - \nLat: " + currentLat + "\nLong: " + currentLng);
+
+        }
+        else
+        {
+            // Can't get location.
+            // GPS or network is not enabled.
+            // Ask user to enable GPS/network in settings.
+            gps.showSettingsAlert();
+        }
+
+        System.out.println(currentLat + " , " + currentLng);
+        //currentLat = User.getLat();
+        //currentLng = User.getLong();
+
+        //currentLat = 1.3431;
+        //currentLng = 103.6929;
+
+        LatLng newlat = new LatLng(currentLat, currentLng);
+        //CameraUpdate update = CameraUpdateFactory.newLatLngZoom(newlat,15);
+        //mMap.animateCamera(update);
+
+        mMap.addMarker(new MarkerOptions()
+                .position(newlat)
+                .title("You"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(newlat));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(16));
 
 
-        StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        stringBuilder.append("location=" + currentLat + "," + currentLng);
-        stringBuilder.append("&radius=" + 1000);
-        stringBuilder.append("&keyword=" + "school");
-        stringBuilder.append("&key=" + "AIzaSyAVTbpSW_XBVvjRvSXddw0kfQmRJy_4hHI");
-
-        String url = stringBuilder.toString();
-
-        Object dataTransfer[] = new Object[2];
-        dataTransfer[0] = mMap;
-        dataTransfer[1] = url;
-
-        GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces(this);
-        getNearbyPlaces.execute(dataTransfer);
-
+        new getPlaces().execute();
     }
 
     @Override
@@ -136,6 +160,9 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
                 .build();
 
         client.connect();
+
+        //LatLng ntu = new LatLng(User.getLat(), User.getLong());
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ntu,15));
     }
 
     @Override
@@ -184,4 +211,116 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+    class getPlaces extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            /*pDialog = new ProgressDialog(EditProductActivity.this);
+            pDialog.setMessage("Loading product details. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();*/
+        }
+
+        /**
+         * Getting product details in background thread
+         * */
+        protected String doInBackground(String... params) {
+
+            int success;
+            try {
+                // Building Parameters
+                //List<NameValuePair> params = new ArrayList<NameValuePair>();
+                //params.add(new BasicNameValuePair("pid", pid));
+
+                Hashtable<String,String> paramss = new Hashtable<String,String>();
+                //paramsss.put("id", id);
+
+                StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+                stringBuilder.append("location=" + currentLat + "," + currentLng);
+                stringBuilder.append("&radius=" + 1000);
+                stringBuilder.append("&keyword=" + "school");
+                stringBuilder.append("&key=" + "AIzaSyAVTbpSW_XBVvjRvSXddw0kfQmRJy_4hHI");
+
+                String url = stringBuilder.toString();
+
+                jsonObject = jsonParser.makeHttpRequest(url,
+                        "POST", paramss);
+
+
+                // json success tag
+                //success = jsonObject.getInt("success");
+                //System.out.println( jsonObject.getString("message"));
+
+                if(jsonObject.getJSONArray("results") != null)
+                {
+
+                }
+
+                /*if (success == 1) {
+
+
+
+                }else{
+                    // product with pid not found
+                }*/
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once got all details
+            //pDialog.dismiss();
+            try
+            {
+                JSONArray resultsArray = jsonObject.getJSONArray("results");
+
+                for(int i = 0 ; i < resultsArray.length(); i++)
+                {
+                    JSONObject jsonObject = resultsArray.getJSONObject(i);
+                    JSONObject locationObj = jsonObject.getJSONObject("geometry").getJSONObject("location");
+
+                    String latitude = locationObj.getString("lat");
+                    String longitude = locationObj.getString("lng");
+
+                    JSONObject nameObject = resultsArray.getJSONObject(i);
+
+                    String name_school = nameObject.getString("name");
+                    String vicinity = nameObject.getString("vicinity");
+
+                    LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
+
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.title(name_school);
+                    markerOptions.position(latLng);
+
+                    mMap.addMarker(markerOptions);
+
+                    System.out.println(name_school + "Adding marker");
+
+                }
+
+            } catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+
+
+
+        }
+    }
+
+
 }
