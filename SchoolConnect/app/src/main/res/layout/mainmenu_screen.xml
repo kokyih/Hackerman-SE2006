@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/logout"
+        android:background="@android:color/white"
         android:layout_width="103dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
@@ -33,7 +34,7 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,28 +42,28 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/welcometxt"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="Welcome, "
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16" />
-
-    <TextView
         android:id="@+id/username"
         android:layout_width="195dp"
         android:layout_height="37dp"
-        android:text="#user"
+        android:text=" #user"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.154" />
+
+    <TextView
+        android:id="@+id/welcometxt"
+        android:layout_width="119dp"
+        android:layout_height="37dp"
+        android:text="Welcome,"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.335"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -70,6 +71,7 @@
 
     <ImageButton
         android:id="@+id/uploadFile"
+
         android:layout_width="119dp"
         android:layout_height="108dp"
         android:layout_marginStart="44dp"
@@ -87,6 +89,7 @@
 
     <ImageButton
         android:id="@+id/downloadFile"
+        android:background="@drawable/timetable"
         android:layout_width="119dp"
         android:layout_height="111dp"
         android:layout_marginTop="190dp"
@@ -99,10 +102,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:id="@+id/viewfeedbackBtn"
+        android:background="@drawable/progresscheck"
         android:layout_width="105dp"
         android:layout_height="103dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -199,12 +204,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="0.448" />
 
     <ImageButton
         android:id="@+id/submitFeedbackBtn"
         android:layout_width="128dp"
-        android:layout_height="114dp"
+        android:layout_height="106dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.816"
@@ -214,8 +219,9 @@
 
     <ImageButton
         android:id="@+id/consentFormBtn"
-        android:layout_width="127dp"
-        android:layout_height="112dp"
+        android:layout_width="115dp"
+        android:layout_height="105dp"
+        android:background="@drawable/consentform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.813"
