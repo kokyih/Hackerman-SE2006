@@ -47,7 +47,7 @@ public class MainMenu extends Activity {
         setContentView(R.layout.mainmenu_screen);
 
         Button btnLogout = (Button) findViewById(R.id.logout);
-        Button gpsButton = (Button) findViewById(R.id.gpsBtn);
+        ImageButton gpsButton = (ImageButton) findViewById(R.id.gpsBtn);
         ImageButton endClass = (ImageButton) findViewById(R.id.endClass);
         ImageButton calendarButton = (ImageButton) findViewById(R.id.calendarBtn);
 
