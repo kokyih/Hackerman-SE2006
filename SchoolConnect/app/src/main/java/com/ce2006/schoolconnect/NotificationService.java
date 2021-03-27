@@ -24,7 +24,7 @@ public class NotificationService extends Service {
     Timer timer;
     TimerTask timerTask;
     String TAG = "Timers";
-    int Your_X_SECS = 10;
+    int Your_X_SECS = 15;
     final Handler handler = new Handler();
 
     JSONParser jsonParser = new JSONParser();

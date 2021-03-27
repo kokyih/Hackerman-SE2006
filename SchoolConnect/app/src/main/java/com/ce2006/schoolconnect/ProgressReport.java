@@ -76,6 +76,8 @@ public class ProgressReport extends Activity implements AdapterView.OnItemSelect
         //new getProgressReport().execute();
         //new getStudentIdList().execute();??? idk man
 
+        new getProgressReport().execute();
+
         if(User.getRole().compareTo("teacher") != 0)
         {
             maths.setEnabled(false);
@@ -88,7 +90,7 @@ public class ProgressReport extends Activity implements AdapterView.OnItemSelect
         }
         else
         {
-            new getProgressReport().execute();
+            new getNames().execute();
         }
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +108,6 @@ public class ProgressReport extends Activity implements AdapterView.OnItemSelect
             }
         });
 
-        new getNames().execute();
     }
 
     @Override
