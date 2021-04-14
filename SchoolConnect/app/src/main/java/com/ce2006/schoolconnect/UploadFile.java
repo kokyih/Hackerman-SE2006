@@ -1,3 +1,9 @@
+/**
+ * @author Zi Jian
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.Manifest;
@@ -38,6 +44,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Class for teachers to upload new timetable to the database
+ */
 public class UploadFile extends Activity {
 
     EditText Name;
@@ -81,7 +90,9 @@ public class UploadFile extends Activity {
 
         requestStoragePermission();
 
-        // view products click event
+        /**
+         * Press back to go back to the main menu
+         */
         back.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -92,7 +103,9 @@ public class UploadFile extends Activity {
             }
         });
 
-        // view products click event
+        /**
+         * Pressing submit uploads the image to the database
+         */
         submit.setOnClickListener(new View.OnClickListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -105,6 +118,9 @@ public class UploadFile extends Activity {
 
         });
 
+        /**
+         * Clicking on the blank image allows user to choose an image from their gallery
+         */
         theImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -119,6 +135,12 @@ public class UploadFile extends Activity {
         });
     }
 
+    /**
+     * After user selected an image from their gallery
+     * @param requestCode
+     * @param resultCode
+     * @param data data of the file selected, in this case the image selected
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -140,6 +162,9 @@ public class UploadFile extends Activity {
 
     }
 
+    /**
+     * Function to upload the file in parts in the background
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void uploadMultiPart(){
 
@@ -164,6 +189,9 @@ public class UploadFile extends Activity {
         }).start();
     }
 
+    /**
+     * Task to upload the file
+     */
     class uploadFile extends AsyncTask<String, String, String> {
 
         @Override
@@ -342,6 +370,11 @@ public class UploadFile extends Activity {
 
     }
 
+    /**
+     * Function to get the path of the file in the phone to upload
+     * @param uri
+     * @return
+     */
     public String getPath(Uri uri){
 
         Cursor cursor = getContentResolver().query(uri,null,null,null,null);
@@ -361,6 +394,9 @@ public class UploadFile extends Activity {
         return path;
     }
 
+    /**
+     * To request user storage permission to choose image
+     */
     protected void requestStoragePermission(){
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
@@ -374,6 +410,12 @@ public class UploadFile extends Activity {
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE} , STORAGE_PERMISSION_CODE);
     }
 
+    /**
+     * Reaction to user choosing an image
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {

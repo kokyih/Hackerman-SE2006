@@ -1,3 +1,9 @@
+/**
+ * @author Gavin
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.Manifest;
@@ -49,7 +55,6 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
     LocationRequest request;
     GoogleApiClient client;
     LatLng latLngCurrent;
-    //EditText el;
 
     double currentLat;
     double currentLng;
@@ -76,15 +81,9 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
     }
 
     /**
-     * Manipulates the map when it's available.
-     * The API invokes this callback when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user receives a prompt to install
-     * Play services inside the SupportMapFragment. The API invokes this method after the user has
-     * installed Google Play services and returned to the app.
+     * This function is called upon clicking school button from viewing all nearby schools.
+     * @param v is the view object from the UI
      */
-
     public void findSchools(View v) {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -113,22 +112,12 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
         }
         else
         {
-            // Can't get location.
-            // GPS or network is not enabled.
-            // Ask user to enable GPS/network in settings.
             gps.showSettingsAlert();
         }
 
         System.out.println(currentLat + " , " + currentLng);
-        //currentLat = User.getLat();
-        //currentLng = User.getLong();
-
-        //currentLat = 1.3431;
-        //currentLng = 103.6929;
 
         LatLng newlat = new LatLng(currentLat, currentLng);
-        //CameraUpdate update = CameraUpdateFactory.newLatLngZoom(newlat,15);
-        //mMap.animateCamera(update);
 
         mMap.addMarker(new MarkerOptions()
                 .position(newlat)
@@ -140,16 +129,12 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
         new getPlaces().execute();
     }
 
+    /**
+     * When map is loaded, call this function
+     * @param googleMap is a google map object
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // Add a marker in Sydney, Australia,
-        // and move the map's camera to the same location.
-        /*LatLng ntu = new LatLng(User.getLat(), User.getLong());
-        googleMap.addMarker(new MarkerOptions()
-                .position(ntu)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(ntu));
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(16));*/
 
         mMap = googleMap;
 
@@ -160,11 +145,12 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
                 .build();
 
         client.connect();
-
-        //LatLng ntu = new LatLng(User.getLat(), User.getLong());
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ntu,15));
     }
 
+    /**
+     * When location is detected to be changed , update location of the marker
+     * @param location is a location object with lat and long members
+     */
     @Override
     public void onLocationChanged(@NonNull Location location)
     {
@@ -188,6 +174,10 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
 
     }
 
+    /**
+     * Upon connection, set priority and interval of the GPS.
+     * @param bundle
+     */
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         request = new LocationRequest().create();
@@ -199,7 +189,6 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
             return;
         }
 
-        //LocationServices.FusedLocationApi.requestLocationUpdates(client, request, (com.google.android.gms.location.LocationListener) this);
     }
 
     @Override
@@ -213,34 +202,24 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
     }
 
 
+    /**
+     * Task to get all nearby schools based on current location on the GPS
+     */
     class getPlaces extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            /*pDialog = new ProgressDialog(EditProductActivity.this);
-            pDialog.setMessage("Loading product details. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();*/
         }
 
         /**
-         * Getting product details in background thread
+         * Getting nearby schools details in background thread
          * */
         protected String doInBackground(String... params) {
 
-            int success;
             try {
-                // Building Parameters
-                //List<NameValuePair> params = new ArrayList<NameValuePair>();
-                //params.add(new BasicNameValuePair("pid", pid));
 
                 Hashtable<String,String> paramss = new Hashtable<String,String>();
-                //paramsss.put("id", id);
 
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + currentLat + "," + currentLng);
@@ -253,23 +232,12 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
                 jsonObject = jsonParser.makeHttpRequest(url,
                         "POST", paramss);
 
-
-                // json success tag
-                //success = jsonObject.getInt("success");
-                //System.out.println( jsonObject.getString("message"));
-
                 if(jsonObject.getJSONArray("results") != null)
                 {
 
                 }
 
-                /*if (success == 1) {
 
-
-
-                }else{
-                    // product with pid not found
-                }*/
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -278,11 +246,9 @@ public class GPSActivity extends FragmentActivity implements OnMapReadyCallback,
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * After completing getting all nearby school, update and place markers
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once got all details
-            //pDialog.dismiss();
             try
             {
                 JSONArray resultsArray = jsonObject.getJSONArray("results");

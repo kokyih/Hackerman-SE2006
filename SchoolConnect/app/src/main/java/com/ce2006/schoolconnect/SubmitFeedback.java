@@ -1,3 +1,9 @@
+/**
+ * @author Ong Jun Sen
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.app.Activity;
@@ -20,6 +26,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * A new UI page for user to input feedback to be inserted into the database
+ */
 public class SubmitFeedback extends Activity implements AdapterView.OnItemSelectedListener{
 
     private AlertDialog.Builder builder;
@@ -36,8 +45,6 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
 
     List<String> names = new ArrayList<String>();
 
-    //ArrayAdapter adapter;//= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,9 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
         Button submit = (Button) findViewById(R.id.submit_fb);
         Button back = (Button) findViewById(R.id.submitFB_back2);
 
+        /**
+         * Back button goes back to the main menu
+         */
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +70,9 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
             }
         });
 
+        /**
+         * Submit button starts the submit feedback task
+         */
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,9 +80,15 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
             }
         });
 
+        /**
+         * Get list of names to show on the drop down list
+         */
         new getNameList().execute();
     }
 
+    /**
+     * Task to get a name list of all users to submit feedback for
+     */
     class getNameList extends AsyncTask<String, String, String> {
 
         @Override
@@ -91,7 +110,6 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
 
                 jnames = json.getJSONArray("nameList");
 
-                // looping through All Products
                 for (int i = 0; i < jnames.length(); i++) {
                     JSONObject c = jnames.getJSONObject(i);
 
@@ -114,26 +132,33 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
             return null;
         }
 
+        /**
+         * Updates the drop down list after the background task
+         * @param file_url
+         */
         protected void onPostExecute(String file_url) {
             if (succeed)
             {
                 succeed = false;
-                //ArrayAdapter newadapter = new ArrayAdapter<String>(SubmitFeedback.this, android.R.layout.simple_spinner_dropdown_item, names);
                 ArrayAdapter adapter = new ArrayAdapter<String>(SubmitFeedback.this, android.R.layout.simple_spinner_dropdown_item, names);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 target.setAdapter(adapter);
                 target.setOnItemSelectedListener(SubmitFeedback.this);
-                //System.out.println("ENTER HERE LEH");
             }
         }
 
     }
 
+    /**
+     * Gets currently selected name and set it to currentTarget
+     * @param parent
+     * @param v
+     * @param position position of the selected item in the dropdown list
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-
         currentTarget = names.get(position);
-
     }
 
     @Override
@@ -141,6 +166,9 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
 
     }
 
+    /**
+     * Task to submit feedback by passing parameters to the php script which connects to the database
+     */
     class submitFeedback extends AsyncTask<String, String, String> {
 
         @Override
@@ -172,8 +200,8 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
 
                 System.out.println( json.getString("message"));
 
+                // If successful refresh the page to an empty one to submit another
                 if (success == 1) {
-                    // successfully created product
                     Intent i = new Intent(getApplicationContext(), SubmitFeedback.class);
                     startActivity(i);
 
@@ -192,8 +220,6 @@ public class SubmitFeedback extends Activity implements AdapterView.OnItemSelect
         }
 
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
-            //pDialog.dismiss();
             if(!succeed)
                 builder.show();
         }

@@ -1,14 +1,17 @@
+/**
+ * @author Yi Heng
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -17,6 +20,9 @@ import org.json.JSONObject;
 
 import java.util.Hashtable;
 
+/**
+ * Class to view the specific feedback that the user clicked into from the list of all the feedbacks
+ */
 public class ViewSpecificFeedback extends Activity {
 
     String id;
@@ -52,7 +58,9 @@ public class ViewSpecificFeedback extends Activity {
         // Getting complete product details in background thread
         new GetFeedbackDetails().execute();
 
-        // save button click event
+        /**
+         * Back goes back to the list of feedbacks
+         */
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -63,60 +71,44 @@ public class ViewSpecificFeedback extends Activity {
 
     }
 
+    /**
+     * Task to get details of the specific feedback
+     */
     class GetFeedbackDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Before starting background thread
          * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            /*pDialog = new ProgressDialog(EditProductActivity.this);
-            pDialog.setMessage("Loading product details. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();*/
         }
 
         /**
-         * Getting product details in background thread
+         * Getting feedback details in background thread
          * */
         protected String doInBackground(String... params) {
 
             int success;
             try {
-                // Building Parameters
-                //List<NameValuePair> params = new ArrayList<NameValuePair>();
-                //params.add(new BasicNameValuePair("pid", pid));
 
                 Hashtable<String,String> paramsss = new Hashtable<String,String>();
                 paramsss.put("id", id);
 
-                // getting product details by making HTTP request
-                // Note that product details url will use GET request
                 JSONObject json = jsonParser.makeHttpRequest(url_get_feedback,
                         "POST", paramsss);
 
-                // check your log for json response
-                //Log.d("Single Product Details", json.toString());
-
-                // json success tag
                 success = json.getInt("success");
                 if (success == 1) {
-                    // successfully received product details
                     JSONArray productObj = json
                             .getJSONArray("feedback"); // JSON Array
 
-                    // get first product object from JSON Array
                     JSONObject feedback = productObj.getJSONObject(0);
 
-                    // display product data in EditText
                     title.setText(feedback.getString("title"));
                     sender.setText("From : " + feedback.getString("submitid"));
                     message.setText(feedback.getString("message"));
 
-                }else{
-                    // product with pid not found
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -126,11 +118,9 @@ public class ViewSpecificFeedback extends Activity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * After completing background task
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once got all details
-            //pDialog.dismiss();
         }
     }
 

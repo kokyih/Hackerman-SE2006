@@ -1,3 +1,9 @@
+/**
+ * @author Yi Heng
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import java.io.BufferedReader;
@@ -9,7 +15,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Hashtable;
-import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +22,9 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+/**
+ * Class to call all the connection neccessary to connect the app to php scripts to the database
+ */
 public class JSONParser {
 
     static InputStream is = null;
@@ -28,18 +36,26 @@ public class JSONParser {
 
     }
 
-    // function get json from url
-    // by making HTTP POST or GET mehtod
+
+
+    /**
+     * function get json from url
+     * by making HTTP POST or GET mehtod
+     * @param url link of the address to make the request
+     * @param method Either post or get method
+     * @param params parameters to pass while going to the address
+     * @return JSONObject to pull data out of .
+     */
     public JSONObject makeHttpRequest(String url, String method,
                                       Hashtable<String,String> params)
     {
-        //return null;
         String s_params = "";
 
         for(String key : params.keySet())
         {
             s_params += key + "=" + params.get(key) + "&";
         }
+
         // Making HTTP request
         try
         {

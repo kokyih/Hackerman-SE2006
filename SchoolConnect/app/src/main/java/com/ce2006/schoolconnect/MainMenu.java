@@ -1,43 +1,32 @@
+/**
+ * @author Zi Jian
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-
-//import org.apache.http.NameValuePair;
-//import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+/**
+ * Class for the main menu
+ */
 public class MainMenu extends Activity {
-
-    // Progress Dialog
-    private ProgressDialog pDialog;
 
     JSONParser jsonParser = new JSONParser();
     TextView Username;
     TextView School;
-
-    // url to create new product
-    private static String url_create_product = "https://10.27.141.30/CE2006/create_product.php";
-
-    // JSON Node names
-    private static final String TAG_SUCCESS = "success";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -172,6 +161,9 @@ public class MainMenu extends Activity {
 
     }
 
+    /**
+     * Task to change status of all students in this class to dismissed
+     */
     class endingClass extends AsyncTask<String, String, String> {
 
         @Override
@@ -210,6 +202,9 @@ public class MainMenu extends Activity {
 
     }
 
+    /**
+     * Task to start class upon teacher's login
+     */
     class startClass extends AsyncTask<String, String, String> {
 
         @Override

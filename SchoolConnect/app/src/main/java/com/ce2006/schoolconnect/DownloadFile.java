@@ -1,7 +1,12 @@
+/**
+ * @author Ong Jun Sen
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -11,12 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.util.Hashtable;
-
+/**
+ * Class to download files/images
+ */
 public class DownloadFile extends Activity {
 
     private static String url_download = Config.download;
@@ -47,16 +49,13 @@ public class DownloadFile extends Activity {
 
         new downloadPic().execute();
 
-        //dlImage.setImageBitmap(User.picture);
-
-        //Intent i = new Intent(getApplicationContext(), DownloadFile.class);
-        //startActivity(i);
-
+        /**
+         * Pressing back goes back to the main menu
+         */
         back.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                // Do login in background thread
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(i);
 
@@ -64,13 +63,15 @@ public class DownloadFile extends Activity {
 
         });
 
+        /**
+         * Upon click downloads the image, not used for now
+         */
         download.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
                 new downloadPic().execute();
-
                 dlImage.setImageBitmap(User.picture);
 
                 Intent i = new Intent(getApplicationContext(), DownloadFile.class);
@@ -81,6 +82,9 @@ public class DownloadFile extends Activity {
         });
     }
 
+    /**
+     * task to download image upon opening the timetable page
+     */
     class downloadPic extends AsyncTask<String, String, String> {
 
         @Override
@@ -90,16 +94,11 @@ public class DownloadFile extends Activity {
 
         protected String doInBackground(String... args) {
 
-            //String name = Name.getText().toString();
             String name = User.getClassID();
-            //System.out.println(name);
 
             Bitmap pic = file.downloadImage(Config.downloadTB,name);
 
             User.setBitmap(pic);
-
-            //Intent i = new Intent(getApplicationContext(), DownloadFile.class);
-            //startActivity(i);
 
             return null;
         }

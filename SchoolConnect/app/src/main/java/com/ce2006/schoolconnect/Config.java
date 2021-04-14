@@ -1,5 +1,14 @@
+/**
+ * @author Nicholas
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
+/**
+ * A public class with all static members and functions for URL to the scripts
+ */
 public class Config {
 
     private static String ipaddr = "116.14.2.247:8080";

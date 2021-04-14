@@ -1,19 +1,17 @@
+/**
+ * @author Ooi Kok Yih
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,23 +23,11 @@ import androidx.core.content.ContextCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.IOException;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Locale;
-
-import static android.content.ContentValues.TAG;
 
 public class Busdriver extends Activity {
 
-    //private Location currentLocation = null;
-
-    //LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-    //LocationListener locationListener = new MyLocationListener();
-    //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
     GPSTracker gps;
     double latitude = 0;

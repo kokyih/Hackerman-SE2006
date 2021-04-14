@@ -1,6 +1,10 @@
+/**
+ * @author Ooi Kok Yih
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 import org.json.JSONArray;
@@ -8,25 +12,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This class is for the calendar page of the app.
+ */
 public class Calendar extends AppCompatActivity {
 
     private AlertDialog.Builder builder;
@@ -44,6 +44,10 @@ public class Calendar extends AppCompatActivity {
 
     String details = "";
 
+    /**
+     *
+     * @param savedInstancesState on creation it will create and assign all the buttons and UI elements
+     */
     @Override
     protected void onCreate(Bundle savedInstancesState){
         super.onCreate(savedInstancesState);
@@ -60,17 +64,21 @@ public class Calendar extends AppCompatActivity {
             eventdetails.setEnabled(false); //disable user to edit text
         }
 
+        /**
+         * Function to identify which date is clicked and then set it to date variable
+         */
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 String selectedDate = dayOfMonth+ "_" + (month+1) + "_" + year;
                 date.setText(selectedDate);
-                //need to pull details from database here
-                //eventdetails.setText("send help from database");
                 new getDateDetails().execute();
             }
         });
 
+        /**
+         * If back button is clicked, go back to main menu
+         */
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +87,9 @@ public class Calendar extends AppCompatActivity {
             }
         });
 
-
+        /**
+         * Upon pressing update, the task updateCalender() will be started and will update the event according to the date selected
+         */
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +98,9 @@ public class Calendar extends AppCompatActivity {
         });
     }
 
+    /**
+     * The task to call the PHP script and sends the new information
+     */
     class updateCalendar extends AsyncTask<String, String, String> {
 
         @Override
@@ -100,9 +113,6 @@ public class Calendar extends AppCompatActivity {
         }
 
         protected String doInBackground(String... args) {
-            //String targetname = currentTarget;//target.getText().toString();
-            //String titles = title.getText().toString();
-            //String messages = message.getText().toString();
 
             Hashtable<String,String> params = new Hashtable<String,String>();
             params.put("date", date.getText().toString());
@@ -114,21 +124,8 @@ public class Calendar extends AppCompatActivity {
             // check for success tag
             try {
                 int success = json.getInt("success");
-
                 System.out.println( json.getString("message"));
 
-                if (success == 1) {
-                    // successfully created product
-                    //Intent i = new Intent(getApplicationContext(), SubmitFeedback.class);
-                    //startActivity(i);
-
-                    // closing this screen
-                    //finish();
-                } else {
-
-                    //succeed = false;
-
-                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -137,14 +134,16 @@ public class Calendar extends AppCompatActivity {
         }
 
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
-            //pDialog.dismiss();
             if(!succeed)
                 builder.show();
         }
 
     }
 
+    /**
+     * Task to pull the selected date's event detail using PHP scripts to connect to the database
+     *
+     */
     class getDateDetails extends AsyncTask<String, String, String> {
 
         @Override
@@ -160,20 +159,14 @@ public class Calendar extends AppCompatActivity {
             JSONObject json = jsonParser.makeHttpRequest(Config.getdatedetails,
                     "POST", params);
 
-            // check for success tag
             try {
                 int success = json.getInt("success");
 
                 System.out.println(json.getString("message") + " Success: " + success);
 
                 if (success == 1) {
-                    //succeed = true;
-                    //System.out.println(json.getJSONObject("details"));
-
                     eventdetails.setText(json.getString("details"));
-
                 } else {
-
                     eventdetails.setText("No events");
                 }
             } catch (JSONException e) {
@@ -184,11 +177,6 @@ public class Calendar extends AppCompatActivity {
         }
 
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
-            //pDialog.dismiss();
-            //if (!succeed)
-                //builder.show();
-
         }
     }
 

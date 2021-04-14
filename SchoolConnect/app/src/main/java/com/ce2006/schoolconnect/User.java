@@ -1,3 +1,9 @@
+/**
+ * @author Ong Jun Sen
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.content.Context;
@@ -5,6 +11,9 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 
+/**
+ * Class to store all the information of the logged in user for ease of access
+ */
 public class User {
 
     private static String name = new String();
@@ -85,6 +94,12 @@ public class User {
         picture = newbit;
     }
 
+    /**
+     * Saves user's data in the phone
+     * @param valueKey key
+     * @param value value
+     * @param context
+     */
     public static void save(String valueKey, String value, Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -93,6 +108,13 @@ public class User {
         edit.commit();
     }
 
+    /**
+     * Loads the user's data in the phone
+     * @param valueKey key
+     * @param valueDefault value
+     * @param context
+     * @return
+     */
     public static String read(String valueKey, String valueDefault, Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);

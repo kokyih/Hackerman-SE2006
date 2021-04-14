@@ -1,3 +1,9 @@
+/**
+ * @author Ooi Kok Yih
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import java.util.ArrayList;
@@ -20,7 +26,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-
+/**
+ * Consentform class for the overall lists of consent form.
+ */
 public class ConsentForm extends ListActivity {
 
     JSONParser jParser = new JSONParser();
@@ -33,6 +41,10 @@ public class ConsentForm extends ListActivity {
     Button back;
     Button newConsentForm;
 
+    /**
+     *
+     * @param savedInstanceState on creation it will create and link a bunch of buttons from the XML.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +56,8 @@ public class ConsentForm extends ListActivity {
         back = (Button) findViewById(R.id.ConsentFormList_backbtn);
         newConsentForm = (Button) findViewById(R.id.ConsentFormList_newBtn);
 
-        // Loading products in Background Thread
         new LoadAllConsentForm().execute();
 
-        // Get listview
         ListView lv = getListView();
 
         if(User.getRole().compareTo("teacher")!=0)
@@ -55,7 +65,9 @@ public class ConsentForm extends ListActivity {
             newConsentForm.setVisibility(View.GONE);
         }
 
-
+        /**
+         * Upon clicking back button, go back to main menu
+         */
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -64,6 +76,9 @@ public class ConsentForm extends ListActivity {
             }
         });
 
+        /**
+         * Clicking this brings to a new page to enter details to submit a new consent form
+         */
         newConsentForm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View arg0){
@@ -72,16 +87,17 @@ public class ConsentForm extends ListActivity {
             }
         });
 
+        /**
+         * Sets the function to find which box is clicked and send the ID to the next UI class.
+         */
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // getting values from selected ListItem
                 String pid = ((TextView) view.findViewById(R.id.cfid)).getText()
                         .toString();
 
-                // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
                         ConsentFormSpecific.class);
                 // sending pid to next activity
@@ -92,6 +108,10 @@ public class ConsentForm extends ListActivity {
             }
         });
     }
+
+    /**
+     * Task to call PHP script to pull all the consent form from the database
+     */
     class LoadAllConsentForm extends AsyncTask<String, String, String> {
 
         /**
@@ -100,26 +120,17 @@ public class ConsentForm extends ListActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            /*pDialog = new ProgressDialog(AllProductsActivity.this);
-            pDialog.setMessage("Loading products. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();*/
         }
 
         /**
-         * getting All products from url
+         * getting all the consent form from consentform database
          * */
         protected String doInBackground(String... args) {
-            // Building Parameters
-            //List<NameValuePair> params = new ArrayList<NameValuePair>();
 
             Hashtable<String,String> params = new Hashtable<String,String>();
 
             params.put("id",User.getID());
 
-            // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_viewConsentForm, "GET", params);
 
             try {
@@ -127,11 +138,9 @@ public class ConsentForm extends ListActivity {
                 int success = json.getInt("success");
 
                 if (success == 1) {
-                    // products found
-                    // Getting Array of Products
                     consentForm = json.getJSONArray("consentform");
 
-                    // looping through All Products
+                    // looping through All consent forms
                     for (int i = 0; i < consentForm.length(); i++) {
                         JSONObject c = consentForm.getJSONObject(i);
 
@@ -149,14 +158,6 @@ public class ConsentForm extends ListActivity {
                         // adding HashList to ArrayList
                         consentFormList.add(map);
                     }
-                } else {
-                    // no products found
-                    // Launch Add New product Activity
-                    //Intent i = new Intent(getApplicationContext(),
-                    //NewProductActivity.class);
-                    // Closing all previous activities
-                    //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //startActivity(i);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -166,12 +167,9 @@ public class ConsentForm extends ListActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * after pulling data, update the listview to show the whole list of consent forms on the UI
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all products
-            //pDialog.dismiss();
-            // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**

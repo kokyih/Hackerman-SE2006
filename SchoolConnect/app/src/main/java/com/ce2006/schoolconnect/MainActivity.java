@@ -1,3 +1,9 @@
+/**
+ * @author Zi Jian
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.app.AlertDialog;
@@ -15,9 +21,11 @@ import org.json.JSONObject;
 
 import java.util.Hashtable;
 
+/**
+ * Login page of the application
+ */
 public class MainActivity extends Activity {
 
-    //private ProgressDialog pDialog;
     private AlertDialog.Builder builder;
 
     JSONParser jsonParser = new JSONParser();
@@ -33,8 +41,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //setContentView(R.layout.main_screen);
-
         setContentView(R.layout.login_screen);
 
         // Edit Text
@@ -45,26 +51,23 @@ public class MainActivity extends Activity {
         Button loginAcc = (Button) findViewById(R.id.loginBtn);
         Button signup = (Button) findViewById(R.id.signupBtn);
 
-        // view products click event
+        /**
+         * Calls the login task to check if user is able to login
+         */
         loginAcc.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                /*
-                // Launching All products Activity
-                Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                //Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(i);*/
-
-                // Do login in background thread
                 new loginActivity().execute();
 
             }
 
         });
 
-        // view products click event
+        /**
+         * Pressing this brings user to registration page to register for an account.
+         */
         signup.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -78,6 +81,9 @@ public class MainActivity extends Activity {
 
     }
 
+    /**
+     * Task to check if user login is valid and returns information of the user to store in User class
+     */
     class loginActivity extends AsyncTask<String, String, String> {
 
         @Override
@@ -87,7 +93,6 @@ public class MainActivity extends Activity {
             builder = new AlertDialog.Builder(MainActivity.this);
             builder.setCancelable(true);
             builder.setMessage("Invalid email/password \nPlease Try again");
-            //builder.show();
         }
 
         /**
@@ -101,22 +106,15 @@ public class MainActivity extends Activity {
             params.put("email", email);
             params.put("password", pw);
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(url_login,
                     "POST", params);
 
-            // check log cat fro response
-            //Log.d("Create Response", json.toString());
-
-            // check for success tag
             try {
                 int success = json.getInt("success");
 
                 System.out.println( json.getString("message"));
 
                 if (success == 1) {
-                    // successfully created product
 
                     User.setName(json.getString("name"));
                     User.setSchool(json.getString("school"));
@@ -151,11 +149,9 @@ public class MainActivity extends Activity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * After completing login task
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
-            //pDialog.dismiss();
             if(!succeed)
                 builder.show();
 
@@ -163,6 +159,10 @@ public class MainActivity extends Activity {
         }
 
     }
+
+    /**
+     * Class for registration page to sign up for the app
+     */
     public static class RegistrationActivity extends Activity {
 
         private AlertDialog.Builder builder;
@@ -206,12 +206,10 @@ public class MainActivity extends Activity {
 
             });
 
-            // view products click event
             cancel.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
-                    // Launching create new product activity
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
 
@@ -220,10 +218,13 @@ public class MainActivity extends Activity {
 
         }
 
+        /**
+         * Task to call scripts and pass user input to the database to register
+         */
         class Register extends AsyncTask<String, String, String> {
 
             /**
-             * Before starting background thread Show Progress Dialog
+             * Before starting background thread
              * */
             @Override
             protected void onPreExecute() {
@@ -232,11 +233,10 @@ public class MainActivity extends Activity {
                 builder = new AlertDialog.Builder(RegistrationActivity.this);
                 builder.setCancelable(true);
                 builder.setMessage("Account creation failed");
-                //builder.show();
             }
 
             /**
-             * Login
+             * Registration request to the database
              * */
             protected String doInBackground(String... args) {
                 String email = r_email.getText().toString();
@@ -255,22 +255,15 @@ public class MainActivity extends Activity {
                 params.put("name", name);
                 params.put("school", school);
 
-                // getting JSON Object
-                // Note that create product url accepts POST method
                 JSONObject json = jsonParser.makeHttpRequest(url_register,
                         "POST", params);
 
-                // check log cat fro response
-                //Log.d("Create Response", json.toString());
-
-                // check for success tag
                 try {
                     int success = json.getInt("success");
 
                     System.out.println( json.getString("message"));
 
                     if (success == 1) {
-                        // successfully created product
 
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
@@ -290,11 +283,9 @@ public class MainActivity extends Activity {
             }
 
             /**
-             * After completing background task Dismiss the progress dialog
+             * After completing background task
              * **/
             protected void onPostExecute(String file_url) {
-                // dismiss the dialog once done
-                //pDialog.dismiss();
                 if(!succeed)
                     builder.show();
             }

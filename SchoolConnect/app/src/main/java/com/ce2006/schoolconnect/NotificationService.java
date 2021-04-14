@@ -1,3 +1,9 @@
+/**
+ * @author Nicholas
+ * @version 1.1
+ @since 2021-04-06
+ */
+
 package com.ce2006.schoolconnect;
 
 import android.app.NotificationChannel;
@@ -19,6 +25,9 @@ import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Class to start the notification service and update every 15 seconds
+ */
 public class NotificationService extends Service {
 
     Timer timer;
@@ -30,6 +39,13 @@ public class NotificationService extends Service {
     JSONParser jsonParser = new JSONParser();
     String classEnd = "";
 
+    /**
+     * On start creates the timer
+     * @param intent
+     * @param flags
+     * @param startId
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         // START YOUR TASKS
@@ -40,6 +56,9 @@ public class NotificationService extends Service {
         return START_STICKY;
     }
 
+    /**
+     * destroys the task
+     */
     @Override
     public void onDestroy() {
         // STOP YOUR TASKS
@@ -52,6 +71,9 @@ public class NotificationService extends Service {
         return null;
     }
 
+    /**
+     * Start to count and calls a task every x seconds
+     */
     public void startTimer() {
         //set a new Timer
         timer = new Timer();
@@ -59,11 +81,12 @@ public class NotificationService extends Service {
         //initialize the TimerTask's job
         initializeTimerTask();
 
-        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
-        timer.schedule(timerTask, 5000, Your_X_SECS * 1000); //
-        //timer.schedule(timerTask, 5000,1000); //
+        timer.schedule(timerTask, 5000, Your_X_SECS * 1000);
     }
 
+    /**
+     * stops the timer task
+     */
     public void stoptimertask() {
         //stop the timer, if it's not already null
         if (timer != null) {
@@ -72,6 +95,9 @@ public class NotificationService extends Service {
         }
     }
 
+    /**
+     * Init the task
+     */
     public void initializeTimerTask() {
 
         timerTask = new TimerTask() {
@@ -90,6 +116,9 @@ public class NotificationService extends Service {
         };
     }
 
+    /**
+     * Creates the channel for notifications to work
+     */
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -106,6 +135,9 @@ public class NotificationService extends Service {
         }
     }
 
+    /**
+     * Task that gets called every x seconds to check whether the user has ended class or not
+     */
     class GetEndingClass extends AsyncTask<String, String, String> {
 
         @Override
@@ -118,31 +150,17 @@ public class NotificationService extends Service {
             Hashtable<String,String> params = new Hashtable<String,String>();
             String endclassvalue = User.read("id", "false", NotificationService.this);
 
-            //System.out.println(endclassvalue);
 
             params.put("id", endclassvalue);
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(Config.getClassEnd,
                     "POST", params);
 
-            // check log cat fro response
-            //Log.d("Create Response", json.toString());
-
-            // check for success tag
             try {
                 int success = json.getInt("success");
 
-                //System.out.println( json.getString("message"));
-
-                //System.out.println( "End Class value : " + json.getString("endClass"));
-
                 if (success == 1) {
-                    // successfully created product
                     classEnd = json.getString("endClass");
-                } else {
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -152,7 +170,7 @@ public class NotificationService extends Service {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * After completing background task, check if child is dismissed or not. If yes, display a notification
          * **/
         protected void onPostExecute(String file_url) {
             if(classEnd.compareTo("true") == 0)
@@ -179,6 +197,9 @@ public class NotificationService extends Service {
 
     }
 
+    /**
+     * Sets the class of the teacher to end the class.
+     */
     class endingClass extends AsyncTask<String, String, String> {
 
         @Override
@@ -192,26 +213,13 @@ public class NotificationService extends Service {
             params.put("classID", User.getClassID());
             params.put("setEndClass" , "false");
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(Config.endClass,
                     "POST", params);
 
-            // check log cat fro response
-            //Log.d("Create Response", json.toString());
-
-            // check for success tag
             try {
-                int success = json.getInt("success");
 
                 System.out.println( json.getString("message"));
 
-                if (success == 1) {
-                    // successfully created product
-
-                } else {
-
-                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -220,7 +228,7 @@ public class NotificationService extends Service {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * After completing background task
          * **/
         protected void onPostExecute(String file_url) {
 
