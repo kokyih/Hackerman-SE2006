@@ -72,6 +72,9 @@ public class MainMenu extends Activity {
         {
             download.setVisibility(View.GONE);
             downloadtxt.setVisibility(View.GONE);
+
+            new startClass().execute();
+
         }
 
         ImageButton viewfb = (ImageButton) findViewById(R.id.viewfeedbackBtn);
@@ -182,22 +185,15 @@ public class MainMenu extends Activity {
             params.put("classID", User.getClassID());
             params.put("setEndClass" , "true");
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(Config.endClass,
                     "POST", params);
 
-            // check log cat fro response
-            //Log.d("Create Response", json.toString());
-
-            // check for success tag
             try {
                 int success = json.getInt("success");
 
                 System.out.println( json.getString("message"));
 
                 if (success == 1) {
-                    // successfully created product
 
                 } else {
 
@@ -209,11 +205,45 @@ public class MainMenu extends Activity {
             return null;
         }
 
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
         protected void onPostExecute(String file_url) {
+        }
 
+    }
+
+    class startClass extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected String doInBackground(String... args) {
+
+            Hashtable<String,String> params = new Hashtable<String,String>();
+            params.put("classID", User.getClassID());
+            params.put("setEndClass" , "false");
+
+            JSONObject json = jsonParser.makeHttpRequest(Config.endClass,
+                    "POST", params);
+
+            try {
+                int success = json.getInt("success");
+
+                System.out.println( json.getString("message"));
+
+                if (success == 1) {
+
+                } else {
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
         }
 
     }

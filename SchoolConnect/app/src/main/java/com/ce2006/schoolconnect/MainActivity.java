@@ -80,19 +80,9 @@ public class MainActivity extends Activity {
 
     class loginActivity extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            /*pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Invalid email or password");
-            pDialog.setIndeterminate(true);
-            pDialog.setCancelable(true);
-            pDialog.setCanceledOnTouchOutside(true);
-            pDialog.show();*/
 
             builder = new AlertDialog.Builder(MainActivity.this);
             builder.setCancelable(true);

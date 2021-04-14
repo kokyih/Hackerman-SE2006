@@ -44,6 +44,8 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
     ToggleButton approval;
     Button submit;
 
+    String statusString = "";
+
 
     String currentTarget = "";
     List<String> names = new ArrayList<String>();
@@ -178,12 +180,33 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
                     title.setText(consentform.getString("title"));
                     sender.setText(consentform.getString("senderid"));
                     message.setText(consentform.getString("message"));
-                    approval.setChecked(consentform.getBoolean("status"));
-                    if (consentform.getString("status").compareTo("1") == 0) {
+
+                    //approval.setChecked(consentform.getBoolean("status"));
+
+                    statusString = consentform.getString("status");
+
+                    String[] arrSplit = statusString.split(",");
+
+                    approval.setChecked(false);
+
+                    for(int i = 0 ; i < arrSplit.length ; i ++)
+                    {
+                        if(arrSplit[i].compareTo(User.getID().toString()) == 0)
+                        {
+                            approval.setChecked(true);
+
+                            approval.setEnabled(false);
+
+                            break;
+                        }
+                    }
+
+                    /*if (consentform.getString("status").compareTo("1") == 0) {
                         approval.setChecked(true);
                     } else {
                         approval.setChecked(false);
-                    }
+                    }*/
+
                     System.out.print(consentform.getString("status"));
 
                 } else {
@@ -233,6 +256,7 @@ public class ConsentFormSpecific extends Activity implements AdapterView.OnItemS
 
                 Hashtable<String, String> paramsss = new Hashtable<String, String>();
                 paramsss.put("id", id);
+                paramsss.put("status", statusString + ',' + User.getID().toString());
                 // getting product details by making HTTP request
                 // Note that product details url will use GET request
                 JSONObject json = jsonParser.makeHttpRequest(url_update_consentform,
