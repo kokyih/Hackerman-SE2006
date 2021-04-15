@@ -19,6 +19,8 @@ import android.widget.EditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 
 /**
@@ -104,7 +106,23 @@ public class MainActivity extends Activity {
 
             Hashtable<String,String> params = new Hashtable<String,String>();
             params.put("email", email);
-            params.put("password", pw);
+
+            //ba7816bf8f1cfea414140de5dae2223b0361a396177a9cb410ff61f2015ad
+
+            MessageDigest md = null;
+            try {
+                md = MessageDigest.getInstance("SHA-256");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            md.update(password.getText().toString().getBytes());
+            byte[] b = md.digest();
+            StringBuffer sb = new StringBuffer();
+            for(byte b1 :b) {
+                sb.append((Integer.toHexString(b1 & 0xff).toString()));
+            }
+
+            params.put("password", sb.toString());
 
             JSONObject json = jsonParser.makeHttpRequest(url_login,
                     "POST", params);
@@ -251,7 +269,21 @@ public class MainActivity extends Activity {
 
                 Hashtable<String,String> params = new Hashtable<String,String>();
                 params.put("email", email);
-                params.put("password", pw);
+
+                MessageDigest md = null;
+                try {
+                    md = MessageDigest.getInstance("SHA-256");
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+                md.update(r_pw.getText().toString().getBytes());
+                byte[] b = md.digest();
+                StringBuffer sb = new StringBuffer();
+                for(byte b1 :b) {
+                    sb.append((Integer.toHexString(b1 & 0xff).toString()));
+                }
+
+                params.put("password", sb.toString());
                 params.put("name", name);
                 params.put("school", school);
 
