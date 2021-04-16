@@ -17,30 +17,40 @@ $dbname = "ce2006";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
  
 // check for required fields
-if (isset($_POST['target']) && isset($_POST['title']) && isset($_POST['message']) && isset($_POST['submitid']) ) {
- 
-    $target = $_POST['target'];
+if (isset($_POST['date']) && isset($_POST['title'])) {
+    
+    $date = $_POST['date'];
     $title = $_POST['title'];
-    $message = $_POST['message'];
-	$submitid = $_POST['submitid'];
+ 
+    $sql = " ";
+ 
+ //check if database has entry
+ if(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM events WHERE edate = '$date'")) > 0 ) {
+ 
+    $sql = "UPDATE events Set title='$title' WHERE edate = '$date'";
+} else {
+    $sql = "INSERT INTO events(title, message, edate) VALUES('$title', 'default', '$date')";
+}
+ 
+ 
  
     // mysql inserting a new row
     //$result = mysqli_query("INSERT INTO products(name, price, description) VALUES('$name', '$price', '$description')");
-	$sql = "INSERT INTO feedback(targetid, submitid, title ,message) VALUES('$target', '$submitid', '$title' , '$message')";
+	//$sql = "INSERT INTO progressreport(studentid, english, maths ,science,mothertongue) VALUES('$studentid', '$english', '$maths' , '$science' ,'$mothertongue')";
 	$result = mysqli_query($conn,$sql);
  
     // check if row inserted or not
     if ($result) {
         // successfully inserted into database
         $response["success"] = 1;
-        $response["message"] = "Feedback submitted";
+        $response["message"] = "Event submitted";
  
         // echoing JSON response
         echo json_encode($response);
     } else {
         // failed to insert row
         $response["success"] = 0;
-        $response["message"] = "Oops! An error occurred.";
+        $response["message"] = $sql;//"Oops! An error occurred.";
  
         // echoing JSON response
         echo json_encode($response);

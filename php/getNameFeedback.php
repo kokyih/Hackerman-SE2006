@@ -14,8 +14,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // array for JSON response
 $response = array();
- 
-$sql = "SELECT * FROM feedback";
+
+$sql = "SELECT * FROM account";
  
 // get all products from products table
 $result = @mysqli_query($conn,$sql);
@@ -24,22 +24,20 @@ $result = @mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) {
     // looping through all results
 	
-    $response["feedback"] = array();
+    $response["nameList"] = array();
  
     while ($row = mysqli_fetch_array($result)) {
         // temp user array
-        $feedback = array();
-        $feedback["id"] = $row["id"];
-        $feedback["targetid"] = $row["targetid"];
-        $feedback["submitid"] = $row["submitid"];
-        $feedback["title"] = $row["title"];
-        $feedback["message"] = $row["message"];
+        $nameList = array();
+        $nameList["uid"] = $row["uid"];
+        $nameList["name"] = $row["name"];
  
         // push single product into final response array
-        array_push($response["feedback"], $feedback);
+        array_push($response["nameList"], $nameList);
     }
     // success
     $response["success"] = 1;
+    $response["message"] = "Pulled all data";
  
     // echoing JSON response
     echo json_encode($response);
@@ -51,4 +49,5 @@ if (mysqli_num_rows($result) > 0) {
     // echo no users JSON
     echo json_encode($response);
 }
+
 ?>

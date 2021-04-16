@@ -17,10 +17,10 @@ $dbname = "ce2006";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
  
 // check for post data
-if (isset($_POST["id"])) {
-    $id = $_POST['id'];
+if (isset($_POST["date"])) {
+    $date = $_POST['date'];
  
-    $sql = "SELECT * FROM feedback WHERE id= '$id' ";
+    $sql = "SELECT * FROM events WHERE edate= '$date' ";
  
     // get a product from products table
 	$result = @mysqli_query($conn,$sql);
@@ -28,29 +28,22 @@ if (isset($_POST["id"])) {
     if (!empty($result)) {
         // check for empty result
         if (mysqli_num_rows($result) > 0) {
- 
             $result = mysqli_fetch_array($result);
- 
-            $feedback = array();
-            $feedback["id"] = $result["id"];
-			$feedback["targetid"] = $result["targetid"];
-			$feedback["submitid"] = $result["submitid"];
-			$feedback["title"] = $result["title"];
-			$feedback["message"] = $result["message"];
+            //$events = array();
+            //$events["title"]=$result["title"];
+			$response["message"] = "Got event out";
             // success
             $response["success"] = 1;
- 
-            // user node
-            $response["feedback"] = array();
- 
-            array_push($response["feedback"], $feedback);
+            $response["events"]= array();
+           // array_push($response["events"], $events);
+			$response["details"] = $result["title"] ; //'have event';
  
             // echoing JSON response
             echo json_encode($response);
         } else {
             // no product found
             $response["success"] = 0;
-            $response["message"] = "No feedback found1";
+            $response["message"] = "No event found leh";
  
             // echo no users JSON
             echo json_encode($response);
@@ -58,7 +51,7 @@ if (isset($_POST["id"])) {
     } else {
         // no product found
         $response["success"] = 0;
-        $response["message"] = "No feedback found2";
+        $response["message"] = "No event found la";
  
         // echo no users JSON
         echo json_encode($response);

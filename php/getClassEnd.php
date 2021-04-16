@@ -20,7 +20,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (isset($_POST["id"])) {
     $id = $_POST['id'];
  
-    $sql = "SELECT * FROM feedback WHERE id= '$id' ";
+    $sql = "SELECT * FROM account WHERE uid= '$id' ";
  
     // get a product from products table
 	$result = @mysqli_query($conn,$sql);
@@ -31,26 +31,17 @@ if (isset($_POST["id"])) {
  
             $result = mysqli_fetch_array($result);
  
-            $feedback = array();
-            $feedback["id"] = $result["id"];
-			$feedback["targetid"] = $result["targetid"];
-			$feedback["submitid"] = $result["submitid"];
-			$feedback["title"] = $result["title"];
-			$feedback["message"] = $result["message"];
+            $response["endClass"] = $result["EndClass"];
+			$response["message"] = "Successfully pulled end class";
             // success
             $response["success"] = 1;
- 
-            // user node
-            $response["feedback"] = array();
- 
-            array_push($response["feedback"], $feedback);
  
             // echoing JSON response
             echo json_encode($response);
         } else {
             // no product found
             $response["success"] = 0;
-            $response["message"] = "No feedback found1";
+            $response["message"] = "No acc found1";
  
             // echo no users JSON
             echo json_encode($response);
@@ -58,7 +49,7 @@ if (isset($_POST["id"])) {
     } else {
         // no product found
         $response["success"] = 0;
-        $response["message"] = "No feedback found2";
+        $response["message"] = "No acc found2";
  
         // echo no users JSON
         echo json_encode($response);

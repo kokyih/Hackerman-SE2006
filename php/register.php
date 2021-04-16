@@ -9,9 +9,9 @@
 $response = array();
  
 $servername = "localhost";
-$username = "id16318694_admin";
-$password = "II8N()t?l734-R4!";
-$dbname = "id16318694_ce2006";
+$username = "root";
+$password = "";
+$dbname = "ce2006";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -26,7 +26,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
  
     // mysql inserting a new row
     //$result = mysqli_query("INSERT INTO products(name, price, description) VALUES('$name', '$price', '$description')");
-	$sql = "INSERT INTO account(name, email, password ,school , logged) VALUES('$name', '$email', '$password' , '$school' , 0)";
+	$sql = "INSERT INTO account(name, email, password ,school , logged, type, classID, EndClass) VALUES('$name', '$email', '$password' , '$school' , 0, 'parent', '01' , 'false')";
 	$result = mysqli_query($conn,$sql);
  
     // check if row inserted or not

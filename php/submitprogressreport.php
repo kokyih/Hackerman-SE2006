@@ -17,23 +17,36 @@ $dbname = "ce2006";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
  
 // check for required fields
-if (isset($_POST['target']) && isset($_POST['title']) && isset($_POST['message']) && isset($_POST['submitid']) ) {
+if (isset($_POST['studentid']) && isset($_POST['english']) && isset($_POST['maths']) && isset($_POST['science'])&& isset($_POST['mothertongue']) ) {
+    
+    $studentid = $_POST['studentid'];
+    $english = $_POST['english'];
+    $maths = $_POST['maths'];
+	$science = $_POST['science'];
+    $mothertongue = $_POST['mothertongue'];
  
-    $target = $_POST['target'];
-    $title = $_POST['title'];
-    $message = $_POST['message'];
-	$submitid = $_POST['submitid'];
+    $sql = " ";
+ 
+ //check if database has entry
+ if(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM progressreport WHERE studentid = '$studentid'")) > 0 ) {
+ 
+    $sql = "UPDATE progressreport Set english='$english', maths='$maths',science='$science',mothertongue='$mothertongue'   WHERE studentid = '$studentid'";
+} else {
+    $sql = "INSERT INTO progressreport(studentid, english, maths ,science,mothertongue) VALUES('$studentid', '$english', '$maths' , '$science' ,'$mothertongue')";
+}
+ 
+ 
  
     // mysql inserting a new row
     //$result = mysqli_query("INSERT INTO products(name, price, description) VALUES('$name', '$price', '$description')");
-	$sql = "INSERT INTO feedback(targetid, submitid, title ,message) VALUES('$target', '$submitid', '$title' , '$message')";
+	//$sql = "INSERT INTO progressreport(studentid, english, maths ,science,mothertongue) VALUES('$studentid', '$english', '$maths' , '$science' ,'$mothertongue')";
 	$result = mysqli_query($conn,$sql);
  
     // check if row inserted or not
     if ($result) {
         // successfully inserted into database
         $response["success"] = 1;
-        $response["message"] = "Feedback submitted";
+        $response["message"] = "Progress report submitted";
  
         // echoing JSON response
         echo json_encode($response);

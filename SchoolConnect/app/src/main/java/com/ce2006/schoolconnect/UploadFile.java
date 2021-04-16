@@ -81,7 +81,7 @@ public class UploadFile extends Activity {
 
         // Edit Text
         Name = (EditText) findViewById(R.id.imageName);
-        Type = (EditText) findViewById(R.id.image_type);
+        //Type = (EditText) findViewById(R.id.image_type);
         theImage = (ImageView) findViewById(R.id.theImage);
 
         // Buttons

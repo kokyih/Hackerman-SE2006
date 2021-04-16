@@ -17,23 +17,33 @@ $dbname = "ce2006";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
  
 // check for required fields
-if (isset($_POST['target']) && isset($_POST['title']) && isset($_POST['message']) && isset($_POST['submitid']) ) {
- 
-    $target = $_POST['target'];
+if (isset($_POST['studentid']) && isset($_POST['senderid']) && isset($_POST['title']) && isset($_POST['message']) ) {
+    
+    $studentid = $_POST['studentid'];
+    $senderid = $_POST['senderid'];
     $title = $_POST['title'];
-    $message = $_POST['message'];
-	$submitid = $_POST['submitid'];
+	$message = $_POST['message'];
+    
+    $status = 0;
+    $sql = " ";
+ 
+ //check if database has entry
+
+    $sql = "INSERT INTO consentform(senderid, studentid, title ,message,status) VALUES('$senderid', '$studentid', '$title' , '$message' ,'$status')";
+
+ 
+ 
  
     // mysql inserting a new row
     //$result = mysqli_query("INSERT INTO products(name, price, description) VALUES('$name', '$price', '$description')");
-	$sql = "INSERT INTO feedback(targetid, submitid, title ,message) VALUES('$target', '$submitid', '$title' , '$message')";
+	//$sql = "INSERT INTO progressreport(studentid, english, maths ,science,mothertongue) VALUES('$studentid', '$english', '$maths' , '$science' ,'$mothertongue')";
 	$result = mysqli_query($conn,$sql);
  
     // check if row inserted or not
     if ($result) {
         // successfully inserted into database
         $response["success"] = 1;
-        $response["message"] = "Feedback submitted";
+        $response["message"] = "consent form submitted";
  
         // echoing JSON response
         echo json_encode($response);

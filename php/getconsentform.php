@@ -19,8 +19,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 // check for post data
 if (isset($_POST["id"])) {
     $id = $_POST['id'];
- 
-    $sql = "SELECT * FROM feedback WHERE id= '$id' ";
+    
+    $sql = "SELECT * FROM consentform WHERE id= '$id' ";
  
     // get a product from products table
 	$result = @mysqli_query($conn,$sql);
@@ -31,26 +31,27 @@ if (isset($_POST["id"])) {
  
             $result = mysqli_fetch_array($result);
  
-            $feedback = array();
-            $feedback["id"] = $result["id"];
-			$feedback["targetid"] = $result["targetid"];
-			$feedback["submitid"] = $result["submitid"];
-			$feedback["title"] = $result["title"];
-			$feedback["message"] = $result["message"];
+            $consentform = array();
+            $consentform["id"] = $result["id"];
+			$consentform["senderid"] = $result["senderid"];
+			$consentform["studentid"] = $result["studentid"];
+			$consentform["title"] = $result["title"];
+			$consentform["message"] = $result["message"];
+			$consentform["status"]=$result["status"];
             // success
             $response["success"] = 1;
  
             // user node
-            $response["feedback"] = array();
+            $response["consentform"] = array();
  
-            array_push($response["feedback"], $feedback);
+            array_push($response["consentform"], $consentform);
  
             // echoing JSON response
             echo json_encode($response);
         } else {
             // no product found
             $response["success"] = 0;
-            $response["message"] = "No feedback found1";
+            $response["message"] = "No consent form found1";
  
             // echo no users JSON
             echo json_encode($response);
@@ -58,7 +59,7 @@ if (isset($_POST["id"])) {
     } else {
         // no product found
         $response["success"] = 0;
-        $response["message"] = "No feedback found2";
+        $response["message"] = "No consentform found2";
  
         // echo no users JSON
         echo json_encode($response);
