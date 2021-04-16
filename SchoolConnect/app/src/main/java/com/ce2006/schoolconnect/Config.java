@@ -11,12 +11,12 @@ package com.ce2006.schoolconnect;
  */
 public class Config {
 
-    private static String ipaddr = "116.14.2.247:8080";
+    //private static String ipaddr = "116.14.2.247:8080";
 
     private static String prefix = "http://";
-    private static String postfix = "/CE2006/";
-    //private static String postfix = "ce2006project2.000webhostapp.com/";
-    private static final String urlhead = prefix + ipaddr + postfix;
+    //private static String postfix = "/CE2006/";
+    private static String postfix = "ce2006project2.000webhostapp.com/";
+    private static final String urlhead = prefix + postfix; //ipaddr
 
 
     public static String login = urlhead + "login.php";
